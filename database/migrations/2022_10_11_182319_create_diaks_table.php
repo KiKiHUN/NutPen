@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('diaks', function (Blueprint $table) {
             $table->string('azonosito',6)->primary();
+            $table->string('jelszo',20);
             $table->string('vnev',50);
             $table->string('knev',50);
             $table->tinyInteger('elerhetoIgazolasok',false,true)->default(3);
