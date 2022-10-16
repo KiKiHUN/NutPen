@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('felh_tipuses', function (Blueprint $table) {
+       Schema::create('keses', function (Blueprint $table) {
             $table->id('ID');
-            $table->string('tipus',10);
+            $table->bigInteger('Osszekoto_ID')->unsigned()->index()->nullable();
+            $table->integer('Kesett_perc');
+            $table->foreign('Osszekoto_ID')->references('ID')->on('Diak_tanoras')->onDelete('cascade')->onUpdate('cascade'); 
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('felh_tipuses');
+        Schema::dropIfExists('keses');
     }
 };
