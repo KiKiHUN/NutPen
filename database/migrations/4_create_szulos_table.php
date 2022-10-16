@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('jelszo',20);
             $table->string('vnev',50);
             $table->string('knev',50);
+            $table->bigInteger('felh_tipus_ID')->unsigned()->index();
+            $table->foreign('felh_tipus_ID')->references('ID')->on('felh_tipuses')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
 

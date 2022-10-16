@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tantargies', function (Blueprint $table) {
+       Schema::create('keses', function (Blueprint $table) {
             $table->id('ID');
-            $table->string('nev',100);
-            $table->string('leiras');
+            $table->bigInteger('Osszekoto_ID')->unsigned()->index();
+            $table->integer('Kesett_perc');
+            $table->foreign('Osszekoto_ID')->references('ID')->on('Diak_tanoras')->onDelete('cascade')->onUpdate('cascade'); 
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tantargies');
+        Schema::dropIfExists('keses');
     }
 };

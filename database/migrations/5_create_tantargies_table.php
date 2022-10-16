@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('diaks', function (Blueprint $table) {
-            $table->string('azonosito',6)->primary();
-            $table->string('jelszo',20);
-            $table->string('vnev',50);
-            $table->string('knev',50);
-            $table->tinyInteger('elerhetoIgazolasok',false,true)->default(3);
+        Schema::create('tantargies', function (Blueprint $table) {
+            $table->id('ID');
+            $table->string('nev',100);
+            $table->string('leiras');
             $table->timestamps();
         });
     }
@@ -30,6 +28,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diaks');
+        Schema::dropIfExists('ertekeles');
+        Schema::dropIfExists('keses');
+        Schema::dropIfExists('Diak_tanoras');
+        Schema::dropIfExists('tanoras');
+        Schema::dropIfExists('tantargies');
     }
 };

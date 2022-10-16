@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tanars', function (Blueprint $table) {
-            $table->string('azonosito',6)->primary();
-            $table->string('jelszo',20);
-            $table->string('vnev',50);
-            $table->string('knev',50);
+        Schema::create('felh_tipuses', function (Blueprint $table) {
+            $table->id('ID');
+            $table->string('tipus',10);
             $table->timestamps();
         });
     }
@@ -29,6 +27,12 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('keses');
+        Schema::dropIfExists('Diak_tanoras');
+        Schema::dropIfExists('diaks_szulos');
+        Schema::dropIfExists('diaks');
+        Schema::dropIfExists('szulos');
         Schema::dropIfExists('tanars');
+        Schema::dropIfExists('felh_tipuses');
     }
 };
