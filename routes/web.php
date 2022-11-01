@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('login',['voltProba'=>false]);
+    return redirect('/login');
 });
+Route::get('/login', function (Request $request) {
+    if ((Session::get('voltproba'))==true) {
+        return view('login',['voltProba'=>true]);
+    }else
+    {
+        return view('login',['voltProba'=>false]);
+    }
+});
+
 Route::post('/logincheck',[App\Http\Controllers\LoginController::class,'check']);

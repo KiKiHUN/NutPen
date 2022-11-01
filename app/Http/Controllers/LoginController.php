@@ -32,14 +32,15 @@ class LoginController extends Controller
                 break;
         }
         if ($db===null) {
-            return view('login',['voltProba'=>true]);
+            return redirect('/login')->with('voltproba', true);
         }
         if($db->where('azonosito' ,'=', $azonosito)->exists())
         {
-            $nev=$db->select('vnev')." ".$db->select('knev');
+            $nev=$db->select('vnev')." ".$db->select('knev');//ha hibát dob itt akkor jó a bejelentkezés. Én már megyek aludni mára
+
         }else
         {
-            return view('login',['voltProba'=>true]);
+            return redirect('/login')->with('voltproba', true);
         };
 
         //return view('flights.show',['flight'=>$flight]);
