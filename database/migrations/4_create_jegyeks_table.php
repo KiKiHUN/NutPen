@@ -13,10 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tantargies', function (Blueprint $table) {
-            $table->id('ID');
-            $table->string('nev',100);
-            $table->string('leiras');
+        Schema::create('jegyeks', function (Blueprint $table) {
+            $table->unsignedTinyInteger('jegy')->primary();
             $table->timestamps();
         });
     }
@@ -28,10 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ertekeles');
-        Schema::dropIfExists('keses');
-        Schema::dropIfExists('Diak_tanoras');
-        Schema::dropIfExists('tanoras');
-        Schema::dropIfExists('tantargies');
+        Schema::dropIfExists('jegyeks');
     }
 };

@@ -15,9 +15,11 @@ return new class extends Migration
     {
        Schema::create('keses', function (Blueprint $table) {
             $table->id('ID');
-            $table->bigInteger('Osszekoto_ID')->unsigned()->index();
+            $table->bigInteger('Diak_tanora_ID')->unsigned()->index();
             $table->integer('Kesett_perc');
-            $table->foreign('Osszekoto_ID')->references('ID')->on('Diak_tanoras')->onDelete('cascade')->onUpdate('cascade'); 
+            $table->datetime('Datum');
+            $table->boolean('igazolva')->default(false);
+            $table->foreign('Diak_tanora_ID')->references('ID')->on('diaks_tanoras')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

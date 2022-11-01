@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('szulos', function (Blueprint $table) {
             $table->string('azonosito',6)->primary();
-            $table->string('jelszo',20);
+            $table->string('jelszo',60);
             $table->string('vnev',50);
             $table->string('knev',50);
             $table->bigInteger('felh_tipus_ID')->unsigned()->index();
@@ -23,14 +23,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('diaks_szulos', function (Blueprint $table) {
-            $table->string('Diak_azonosito',6);
-            $table->string('Szulo_azonosito',6);
-            $table->foreign('Szulo_azonosito')->references('azonosito')->on('szulos')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('Diak_azonosito')->references('azonosito')->on('diaks')->onDelete('cascade')->onUpdate('cascade');
-            $table->unique(['Diak_azonosito', 'Szulo_azonosito']);
-            $table->timestamps();
-          });
     }
 
     /**
@@ -40,7 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('diaks_szulos');
         Schema::dropIfExists('szulos');
         
     }
