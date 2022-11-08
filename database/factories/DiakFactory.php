@@ -24,9 +24,9 @@ class DiakFactory extends Factory
         $blowfishPrefix = $prefix.$cost.$salt;
         $password = 'alma';
         $hash = crypt($password, $blowfishPrefix);
-        
+
         return [
-            
+
                 "vnev"=> $this->faker->firstName($gender),
                 'knev' => $this->faker->lastName(),
                 'azonosito'=> $this->faker->bothify('d#?#?#'),

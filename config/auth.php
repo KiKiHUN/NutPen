@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'diak',
+        'password' => 'users',
     ],
 
     /*
@@ -36,9 +36,18 @@ return [
     */
 
     'guards' => [
-        'web' => [
+
+        'tanar' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'tanarok',
+        ],
+        'diak' => [
+            'driver' => 'session',
+            'provider' => 'diakok',
+        ],
+        'szulo' => [
+            'driver' => 'session',
+            'provider' => 'szulok',
         ],
     ],
 
@@ -60,9 +69,17 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'diakok' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Diak::class,
+        ],
+        'tanarok' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Tanar::class,
+        ],
+        'szulok' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Szulo::class,
         ],
 
         // 'users' => [

@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Diak;
+use App\Models\Szulo;
+use App\Models\Tanar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Psy\Readline\Hoa\ConsoleOutput;
 use Symfony\Component\Console\Input\Input;
+use Symfony\Component\ErrorHandler\Debug;
 
 class LoginController extends Controller
 {
+
     function check(Request $request)
     {
         $azonosito=$request->post('azonosito');
@@ -15,34 +22,69 @@ class LoginController extends Controller
         //dd($azonosito);
         //dd($jelszo); //jok ezek
         $AzonositoValaszto = mb_substr($azonosito, 0, 1);
-        $db=null;
         switch ($AzonositoValaszto) {
             case 'd':
-                $db=DB::table('diaks')->select('azonosito','vnev','knev','jelszo');
+                $user = Diak::where([
+                    'azonosito' => $azonosito,
+                    'jelszo' => hasheles($jelszo)
+                ])->first();
+
+                if ($user)
+                {
+                    Auth::guard('diak')->login($user);
+                    return redirect('/Dashboard/'.$azonosito);
+                }else {
+                    return redirect('/login')->with('voltproba', true);
+                }
                 break;
             case 's':
-                $db=DB::table('szulos')->select('azonosito','vnev','knev','jelszo');
+                $user = Szulo::where([
+                    'azonosito' => $azonosito,
+                    'jelszo' => hasheles($jelszo)
+                ])->first();
+
+                if ($user)
+                {
+                    Auth::guard('szulo')->login($user);
+                    return redirect('/Dashboard/'.$azonosito);
+                }else {
+                    return redirect('/login')->with('voltproba', true);
+                }
                 break;
             case 't':
-                $db=DB::table('tanars')->select('azonosito','vnev','knev','jelszo');
-                break;
+                $user = Tanar::where([
+                    'azonosito' => $azonosito,
+                    'jelszo' => hasheles($jelszo)
+                ])->first();
 
+                if ($user)
+                {
+                    Auth::guard('tanar')->login($user);
+                    return redirect('/Dashboard/'.$azonosito);
+                }else {
+                    return redirect('/login')->with('voltproba', true);
+                }
+                break;
             default:
-                $db=null;
+                return redirect('/login')->with('voltproba', true);
                 break;
         }
-        if ($db===null) {
-            return redirect('/login')->with('voltproba', true);
-        }
-        if($db->where('azonosito' ,'=', $azonosito)->exists())
-        {
-            $nev=$db->select('vnev')." ".$db->select('knev');//ha hibát dob itt akkor jó a bejelentkezés. Én már megyek aludni mára
 
-        }else
-        {
-            return redirect('/login')->with('voltproba', true);
-        };
+
+
 
         //return view('flights.show',['flight'=>$flight]);
     }
+
 }
+    function hasheles($be)
+    {
+
+        $prefix = '$2y$';
+        $cost = '10';
+        $salt = '$thisisahardcodedsalt$';
+        $blowfishPrefix = $prefix.$cost.$salt;
+        $password = $be;
+        $hash = crypt($password, $blowfishPrefix);
+       return  $hash;
+    }

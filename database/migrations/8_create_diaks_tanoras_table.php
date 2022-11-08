@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id('ID');
             $table->bigInteger('Tanora_ID')->unsigned()->index();
             $table->string('Diak_azonosito',6);
+            $table->boolean('megjelent')->default(false);
             $table->foreign('Tanora_ID')->references('ID')->on('tanoras')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('Diak_azonosito')->references('azonosito')->on('diaks')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
@@ -30,6 +31,8 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('keses');
         Schema::dropIfExists('diaks_tanoras');
+
     }
 };
