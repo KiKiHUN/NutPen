@@ -21,8 +21,8 @@ Route::get('/', function () {
     return redirect('/login');
 });
 Route::get('/login', function () {
-    if (Auth::check()) {
-        return redirect('/Dashboard/'.Auth::user()->azonosito);
+    if (Auth::guard('szulo')->check()||Auth::guard('diak')->check()||Auth::guard('tanar')->check()) {
+        return redirect('/Dashboard');
     }
     if ((Session::get('voltproba'))==true) {
         return view('login',['voltProba'=>true]);
@@ -35,9 +35,14 @@ Route::get('/login', function () {
 Route::post('/logincheck',[App\Http\Controllers\LoginController::class,'check']);
 
 
-Route::group(['middleware' => 'auth'], function () {
 
-    Route::get('/Dashboard/{azonosito}',[App\Http\Controllers\ElvalasztoController::class,'Dash']);
-
+Route::group(['middleware' => 'auth:diak,szulo,tanar'], function () {
+    Route::get('/Dashboard',[App\Http\Controllers\ElvalasztoController::class,'Dash']);
+    Route::get('/fiok',[App\Http\Controllers\ElvalasztoController::class,'fiok']);
+    Route::get('/ertekeles',[App\Http\Controllers\ElvalasztoController::class,'ertekeles']);
+    Route::get('/ora',[App\Http\Controllers\ElvalasztoController::class,'ora']);
+    Route::get('/hianyzas',[App\Http\Controllers\ElvalasztoController::class,'hianyzas']);
     Route::get('/logout',[App\Http\Controllers\LogoutController::class,'logout']);
 });
+
+

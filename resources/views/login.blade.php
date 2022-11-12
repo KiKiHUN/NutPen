@@ -1,7 +1,16 @@
-@extends('index');
+@extends('layout');
 
+@section('navbar')
 
+<li class="nav-item">
+    <a class="nav-link active" href="accounts.html">
+        <i class="far fa-user"></i>
+        Accounts
+        <span class="sr-only">(current)</span>
+    </a>
+</li>
 
+@endsection
 
     @section('content')
 

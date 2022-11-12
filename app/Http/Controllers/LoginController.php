@@ -32,7 +32,7 @@ class LoginController extends Controller
                 if ($user)
                 {
                     Auth::guard('diak')->login($user);
-                    return redirect('/Dashboard/'.$azonosito);
+                    return redirect('/Dashboard');
                 }else {
                     return redirect('/login')->with('voltproba', true);
                 }
@@ -46,7 +46,7 @@ class LoginController extends Controller
                 if ($user)
                 {
                     Auth::guard('szulo')->login($user);
-                    return redirect('/Dashboard/'.$azonosito);
+                    return redirect('/Dashboard');
                 }else {
                     return redirect('/login')->with('voltproba', true);
                 }
@@ -60,7 +60,7 @@ class LoginController extends Controller
                 if ($user)
                 {
                     Auth::guard('tanar')->login($user);
-                    return redirect('/Dashboard/'.$azonosito);
+                    return redirect('/Dashboard');
                 }else {
                     return redirect('/login')->with('voltproba', true);
                 }

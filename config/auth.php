@@ -14,8 +14,8 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'diak',
-        'password' => 'users',
+        'guard' => 'web',
+        'passwords' => 'users',
     ],
 
     /*
@@ -36,7 +36,10 @@ return [
     */
 
     'guards' => [
-
+        'web' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
         'tanar' => [
             'driver' => 'session',
             'provider' => 'tanarok',
@@ -69,6 +72,10 @@ return [
     */
 
     'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
         'diakok' => [
             'driver' => 'eloquent',
             'model' => App\Models\Diak::class,
