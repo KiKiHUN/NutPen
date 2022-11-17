@@ -10,26 +10,32 @@
         <span class="sr-only">(current)</span>
     </a>
 </li>
-
-<li class="nav-item">
-    <a class="nav-link" href="products.html">
-        <i class="fa-solid fa-cross"></i>
-        Értékelések
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>
+            Értékelés <i class="fas fa-angle-down"></i>
+        </span>
     </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="/ertekeles">Listázás</a>
+        <a class="dropdown-item" href="/ertekeles/tantargyvalaszt">Új</a>
+    </div>
 </li>
-<li class="nav-item">
-    <a class="nav-link" href="products.html">
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
         <i class="fa-solid fa-clock"></i>
-        Órarend
+        <span>
+            Órák <i class="fas fa-angle-down"></i>
+        </span>
     </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="/ora">Órarend</a>
+        <a class="dropdown-item" href="/hianyzas">Hiányzás</a>
+    </div>
 </li>
-<li class="nav-item">
-    <a class="nav-link" href="products.html">
-        <i class="fa-solid fa-person-circle-question"></i>
-        Hiányzások
-    </a>
-</li>
-
 
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"

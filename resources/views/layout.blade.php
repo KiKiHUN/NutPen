@@ -8,11 +8,12 @@
     <title>NutPen enapló</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
     <!-- https://fonts.google.com/specimen/Roboto -->
-    <link href="FA_6.2.0_web/css/all.css" rel="stylesheet">
+    <link href="/FA_6.2.0_web/css/all.css" rel="stylesheet">
     <!-- https://fontawesome.com/ -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
-    <link rel="stylesheet" href="css/templatemo-style.css">
+    <link rel="stylesheet" href="/css/templatemo-style.css">
+    <link rel="stylesheet" type="text/css" href="/css/datatables.min.css"/>
     <!--
 	Product Admin CSS Template
 	https://templatemo.com/tm-524-product-admin
@@ -53,16 +54,19 @@
             </div>
         </footer>
     </div>
+    @yield('script');
 
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="/js/jquery-3.3.1.min.js"></script>
     <!-- https://jquery.com/download/ -->
-    <script src="js/moment.min.js"></script>
+    <script src="/js/moment.min.js"></script>
     <!-- https://momentjs.com/ -->
-    <script src="js/Chart.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
     <!-- http://www.chartjs.org/docs/latest/ -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <!-- https://getbootstrap.com/ -->
-    <script src="js/tooplate-scripts.js"></script>
+    <script src="/js/tooplate-scripts.js"></script>
+    <script type="text/javascript" src="/js/datatables.min.js"></script>
     <!--<script>
         Chart.defaults.global.defaultFontColor = 'white';
         let ctxLine,
