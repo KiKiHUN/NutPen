@@ -29,6 +29,14 @@ button:focus {
   display: flex;
   align-items: center;
 }
+.kozepre
+{
+    margin: auto;
+    width: 80%;
+    background-color: #2c2e2f23;
+    border: 3px solid rgba(26, 47, 70, 0.283);
+    padding: 20%;
+}
 .tm-site-icon {
   color: #656565;
 }
@@ -492,12 +500,20 @@ input[type="checkbox"]:focus {
   color: #9f1321;
 }
 .tm-footer {
+    position:fixed;
+    bottom:0;
+    width: 98%;
+    margin-left: 1%;
+    margin-right: 1%;
   background-color: #567086;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   -webkit-box-shadow: 0 -3px 5px 0 rgba(69, 92, 113, 0.59);
   -moz-box-shadow: 0 -3px 5px 0 rgba(69, 92, 113, 0.59);
   box-shadow: 0 -3px 5px 0 rgba(69, 92, 113, 0.59);
+}
+.kozepform{
+    display: inline-block;
 }
 .custom-select {
   height: 50px;

@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth:diak,szulo,tanar'], function () {
     Route::get('/ertekeles',[App\Http\Controllers\ElvalasztoController::class,'ertekeles']);
     Route::get('/ora',[App\Http\Controllers\ElvalasztoController::class,'ora']);
     Route::get('/hianyzas',[App\Http\Controllers\ElvalasztoController::class,'hianyzas']);
+    Route::post('/pwreset/save',[App\Http\Controllers\pwresetController::class,'check']);
+    Route::get('/pwreset',[App\Http\Controllers\pwresetController::class,'resetpage']);
     Route::get('/logout',[App\Http\Controllers\LogoutController::class,'logout']);
 });
 

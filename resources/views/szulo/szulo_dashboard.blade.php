@@ -1,6 +1,6 @@
 
 
-@extends('layout');
+@extends('layout')
 
 @section('navbar')
 <li class="nav-item">

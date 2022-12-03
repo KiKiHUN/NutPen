@@ -42,19 +42,19 @@
 
         </nav>
         <div class="container">
-            @yield('content');
+            @yield('content')
         </div>
         <footer class="tm-footer row tm-mt-small">
             <div class="col-12 font-weight-light">
                 <p class="text-center text-white mb-0 px-4 small">
-                    Copyright &copy; <b>2018</b> All rights reserved.
+                    Copyright &copy; <b>2022</b> Minden Incidens fenntartva.
 
-                    Design: <a rel="nofollow noopener" href="https://templatemo.com" class="tm-footer-link">Template Mo</a>
+                    Készítette: KiKi
                 </p>
             </div>
         </footer>
     </div>
-    @yield('script');
+    @yield('script')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="/js/jquery-3.3.1.min.js"></script>

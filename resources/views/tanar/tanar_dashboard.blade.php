@@ -1,6 +1,6 @@
 
 
-@extends('layout');
+@extends('layout')
 
 @section('navbar')
 <li class="nav-item">
@@ -46,7 +46,7 @@
         </span>
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Fiók</a>
+        <a class="dropdown-item" href="/fiok">Fiók</a>
         <a class="dropdown-item" href="/logout">Kilépés</a>
     </div>
 </li>

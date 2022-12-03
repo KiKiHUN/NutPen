@@ -72,7 +72,7 @@
                     </thead>
                     <tbody>
 
-                            @foreach ($ertekelesek as $item)
+                            @foreach ($adat as $item)
                             <?php
                                     $tanar=DB::table('ertekeles')->join('tanars', function ($join) {
                                         $join->on('tanars.azonosito', '=', 'ertekeles.Tanar_azonosito');
