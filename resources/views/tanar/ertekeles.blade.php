@@ -166,5 +166,5 @@
 
     @section('script')
 
-        <script src="{{ asset('/js/tanar_gorgeto.js') }}" type="text/javascript" defer></script>
+        <script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
     @endsection

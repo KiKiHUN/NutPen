@@ -26,7 +26,7 @@
 <li class="nav-item">
     <a class="nav-link" href="/hianyzas">
         <i class="fa-solid fa-person-circle-question"></i>
-        Hiányzások
+        Késések
     </a>
 </li>
 

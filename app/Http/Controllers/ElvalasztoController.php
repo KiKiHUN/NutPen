@@ -71,11 +71,22 @@ class ElvalasztoController extends Controller
 
     switch ($azonositoValaszto) {////////////////////////////nincs kész
         case 'd':
-            $adat = Keses::where(['azonosito' => Auth::user()->azonosito])->join('felh_tipuses', function ($join) {
-                $join->on('diaks.felh_tipus_ID', '=', 'felh_tipuses.ID')->where('diaks.azonosito', '=', Auth::user()->azonosito);
-            })->first();
+            $adat = DB::table('keses')->selectRaw("diaks_tanoras.Diak_azonosito,Kesett_perc,tanars.vnev,tanars.knev,tantargies.nev,tantargies.leiras,keses.Datum,keses.igazolva")
+            ->join('diaks_tanoras', function ($join) {
+                $join->on('diaks_tanoras.ID', '=', 'keses.Diak_tanora_ID');
+            })
+            ->join('tanoras', function ($join) {
+                $join->on('tanoras.ID', '=', 'diaks_tanoras.Tanora_ID');
+            })
+            ->join('tantargies', function ($join) {
+                $join->on('tantargies.ID', '=', 'tanoras.Tantargy_ID');
+            })->join('tanars', function ($join) {
+                $join->on('tanars.azonosito', '=', 'tanoras.Tanar_azonosito');
+            })->where('diaks_tanoras.Diak_azonosito','=',Auth::user()->azonosito)
+            ->get();
             return View('diak.hianyzas',['adat'=>$adat]);
             break;
+
         case 's':
             $adat = Keses::where(['azonosito' => Auth::user()->azonosito])->first();
             return View('szulo.hianyzas',['adat'=>$adat]);
