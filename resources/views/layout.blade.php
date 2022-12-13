@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <!-- https://getbootstrap.com/ -->
     <link rel="stylesheet" href="/css/templatemo-style.css">
+
+    <link rel="stylesheet" href="/css/app.css">
     <link rel="stylesheet" type="text/css" href="/css/datatables.min.css"/>
     <!--
 	Product Admin CSS Template

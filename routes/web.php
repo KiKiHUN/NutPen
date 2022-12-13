@@ -48,9 +48,13 @@ Route::group(['middleware' => 'auth:diak,szulo,tanar'], function () {
 });
 
 Route::group(['middleware' => 'auth:tanar'], function () {
-    Route::get('/ertekeles/tantargyvalaszt',[App\Http\Controllers\ElvalasztoController::class,'tantargyvalaszt']);
-    Route::post('/ertekeles/diakvalaszt',[App\Http\Controllers\ElvalasztoController::class,'diakvalaszt']);
-    Route::post('/ertekeles/tarolas',[App\Http\Controllers\ElvalasztoController::class,'tarolas']);
+    Route::get('/ertekeles/tantargyvalaszt',[App\Http\Controllers\Editcontroller::class,'tantargyvalaszt']);
+    Route::post('/ertekeles/diakvalaszt',[App\Http\Controllers\Editcontroller::class,'diakvalaszt']);
+    Route::post('/ertekeles/tarolas',[App\Http\Controllers\Editcontroller::class,'tarolas']);
+});
+
+Route::group(['middleware' => 'auth:szulo'], function () {
+    Route::post('/hianyzas/igazol',[App\Http\Controllers\Editcontroller::class,'hianyzastarol']);
 });
 
 
