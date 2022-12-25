@@ -118,16 +118,27 @@ class ElvalasztoController extends Controller
 
         switch ($azonositoValaszto) {
             case 'd':
-                $user = Diak::where(['azonosito' => Auth::user()->azonosito])->first();
-                return View('diak.ora',['user'=>$user]);
+                $orarend=DB::table('tantargies')->join('tanoras', function ($join) {
+                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
+                })
+                ->join('diaks_tanoras', function ($join) {
+                    $join->on('diaks_tanoras.Tanora_ID', '=', 'tanoras.ID');
+                })->where('diaks_tanoras.Diak_azonosito','=',Auth::user()->azonosito)
+                ->get();
+
+                return View('diak.ora',['orarend'=>$orarend]);
                 break;
-            case 's':
-                $user = Szulo::where(['azonosito' => Auth::user()->azonosito])->first();
-                return View('szulo.ora',['user'=>$user]);
-                break;
+                
             case 't':
-                $user = Tanar::where(['azonosito' => Auth::user()->azonosito])->first();
-                return View('tanar.ora',['user'=>$user]);
+                $targyak=DB::table('tantargies')->join('tanoras', function ($join) {
+                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
+                })
+                ->join('tanars', function ($join) {
+                    $join->on('tanars.azonosito', '=', 'tanoras.Tanar_azonosito');
+                })->where('tanoras.Tanar_azonosito','=',Auth::user()->azonosito)
+                ->get();
+
+                return View('tanar.ora',['targyak'=>$targyak]);
                 break;
         }
    }
