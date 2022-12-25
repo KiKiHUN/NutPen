@@ -7,15 +7,18 @@ use App\Models\Ertekeles;
 use App\Models\Keses;
 use App\Models\Szulo;
 use App\Models\Tanar;
+use DateTime;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class Editcontroller extends Controller
 {
-    public function tantargyvalaszt()
+    public function tantargyvalaszt(Request $request)
     {
         $adatok = DB::table('tanars')->select(['tantargies.nev', 'tantargies.ID', 'tanars.azonosito'])
             ->join('tanoras', function ($join) {
@@ -29,45 +32,87 @@ class Editcontroller extends Controller
             })->where([
                 ['tanoras.Tanar_Azonosito', '=', Auth::user()->azonosito]
             ])->groupBy('tantargies.ID', 'tantargies.nev', 'tanars.azonosito')->get();
-        //dd($adatok);
-        return View('tanar.ertekeles', ['status' => 1, 'adatok' => $adatok]);
+        if ($request->path() == "ertekeles/tantargyvalaszt") {
+            return View('tanar.ertekeles', ['status' => 1, 'adatok' => $adatok]);
+        } elseif ($request->path() == "hianyzas/tantargyvalaszt") {
+            return View('tanar.hianyzas', ['status' => 1, 'adatok' => $adatok]);
+        }
     }
 
     public function diakvalaszt(Request $request)
     {
-
-        $jegyek = DB::table('jegyeks')->select('jegy')->get();
-
-        $adatok = DB::table('diaks')->select(['diaks.vnev', 'diaks.knev', 'diaks.azonosito', 'tantargies.nev', 'tantargies.ID', 'tanoras.Tanar_Azonosito'])
-            ->join('diaks_tanoras', function ($join) {
-                $join->on('diaks.azonosito', '=', 'diaks_tanoras.Diak_azonosito');
-            })
-            ->join('tanoras', function ($join) {
-                $join->on('tanoras.ID', '=', 'diaks_tanoras.Tanora_ID');
-            })
-            ->join('tantargies', function ($join) {
-                $join->on('tantargies.ID', '=', 'tanoras.Tantargy_ID');
-            })->where([
-                ['tanoras.Tanar_Azonosito', '=', Auth::user()->azonosito],
-                ['tantargies.ID', '=', request('id')]
-            ])->get();
         //dd($adatok);
-        return View('tanar.ertekeles', ['status' => 2, 'adatok' => $adatok, 'jegyek' => $jegyek]);
+        if ($request->path() == "ertekeles/diakvalaszt") {
+            $adatok = DB::table('diaks')->select(['diaks.vnev', 'diaks.knev', 'diaks.azonosito', 'tantargies.nev', 'tantargies.ID', 'tanoras.Tanar_Azonosito'])
+                ->join('diaks_tanoras', function ($join) {
+                    $join->on('diaks.azonosito', '=', 'diaks_tanoras.Diak_azonosito');
+                })
+                ->join('tanoras', function ($join) {
+                    $join->on('tanoras.ID', '=', 'diaks_tanoras.Tanora_ID');
+                })
+                ->join('tantargies', function ($join) {
+                    $join->on('tantargies.ID', '=', 'tanoras.Tantargy_ID');
+                })->where([
+                    ['tanoras.Tanar_Azonosito', '=', Auth::user()->azonosito],
+                    ['tantargies.ID', '=', request('id')]
+                ])->get();
+            $jegyek = DB::table('jegyeks')->select('jegy')->get();
+            return View('tanar.ertekeles', ['status' => 2, 'adatok' => $adatok, 'jegyek' => $jegyek]);
+        } elseif ($request->path() == "hianyzas/diakvalaszt") {
+            $adatok = DB::table('diaks')->select(['diaks.vnev', 'diaks.knev', 'diaks.azonosito', 'tantargies.nev', 'tantargies.ID','diaks_tanoras.ID as tanoraid' , 'tanoras.Tanar_Azonosito', 'tanoras.kezdet', 'tanoras.veg'])
+                ->join('diaks_tanoras', function ($join) {
+                    $join->on('diaks.azonosito', '=', 'diaks_tanoras.Diak_azonosito');
+                })
+                ->join('tanoras', function ($join) {
+                    $join->on('tanoras.ID', '=', 'diaks_tanoras.Tanora_ID');
+                })
+                ->join('tantargies', function ($join) {
+                    $join->on('tantargies.ID', '=', 'tanoras.Tantargy_ID');
+                })->where([
+                    ['tanoras.Tanar_Azonosito', '=', Auth::user()->azonosito],
+                    ['tantargies.ID', '=', request('id')]
+                ])->get();
+            return View('tanar.hianyzas', ['status' => 2, 'adatok' => $adatok]);
+        }
     }
 
     public function tarolas(Request $request)
     {
-        $e = new Ertekeles();
-        $e->datum = now();
-        $e->Tanar_Azonosito = Auth::user()->azonosito;
-        $e->Diak_Azonosito = request('azonosito');
-        $e->jegy = request('jegy');
-        $e->Tantargy_ID = request('id');
-        $e->save();
-        return redirect('/ertekeles');
+        if ($request->path() == "ertekeles/tarolas") {
+            $e = new Ertekeles();
+            $e->datum = now();
+            $e->Tanar_Azonosito = Auth::user()->azonosito;
+            $e->Diak_Azonosito = request('azonosito');
+            $e->jegy = request('jegy');
+            $e->Tantargy_ID = request('id');
+            $e->save();
+            return redirect('/ertekeles');
+        } elseif ($request->path() == "hianyzas/tarolas") {
+            error_log($request->adatok);
+            $kilista = json_decode($request->input('adatok'), true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                error_log("hiba: ".json_last_error_msg());
+            } else {
+                try {
+                foreach ($kilista as $item) {
+
+                        $k = new Keses();
+                        $k->Diak_tanora_ID=$item['diakTanoraID'];
+                        $k->Kesett_perc=$item['kesettperc'];
+                        $k->Datum=now();
+                        $k->igazolva=0;
+                        $k->save();
+                }
+                return response()->json("akurvaeletmukodik", 200);
+            } catch (\Throwable $th) {
+                return response()->json("hatbazdmegvalamirossz", 400);
+            }
+            }
+        }
     }
 
-    public function hianyzastarol(Request $request)
+    public function igazolastarol(Request $request)
     {
         DB::table('keses')->select(['keses.igazolva', 'keses.ID'])
             ->where('ID', '=', request('id'))

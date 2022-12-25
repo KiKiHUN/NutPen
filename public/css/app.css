@@ -12,3 +12,6 @@
 {
  color: rgb(73, 169, 73);
 }
+input[type=number]::-webkit-inner-spin-button {
+    opacity: 1
+}

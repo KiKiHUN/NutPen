@@ -91,8 +91,23 @@ class ElvalasztoController extends Controller
             return View('szulo.hianyzas',['gyerekek'=>$gyerekek]);
             break;
         case 't':
-            $adat = Keses::where(['azonosito' => Auth::user()->azonosito])->first();
-            return View('tanar.hianyzas',['adat'=>$adat]);
+            $adatok=DB::table('keses')->select(['diaks.vnev','diaks.knev','diaks_tanoras.ID','diaks.azonosito','tantargies.nev','Kesett_perc','Datum','igazolva'])
+                        ->join('diaks_tanoras', function ($join) {
+                            $join->on('keses.Diak_Tanora_ID', '=', 'diaks_tanoras.ID');
+                        })
+                        ->join('tanoras', function ($join) {
+                            $join->on('diaks_tanoras.Tanora_ID', '=', 'tanoras.ID');
+                        })
+                        ->join('diaks', function ($join) {
+                            $join->on('diaks_tanoras.Diak_azonosito', '=', 'diaks.azonosito');
+                        })
+                        ->join('tantargies', function ($join) {
+                            $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
+                        })
+                        ->where([
+                            ['tanoras.Tanar_Azonosito', '=', Auth::user()->azonosito ]
+                        ])->get();
+                        return View('tanar.hianyzas',['status'=>0,'adatok'=>$adatok]);
             break;
     }
    }

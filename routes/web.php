@@ -51,10 +51,13 @@ Route::group(['middleware' => 'auth:tanar'], function () {
     Route::get('/ertekeles/tantargyvalaszt',[App\Http\Controllers\Editcontroller::class,'tantargyvalaszt']);
     Route::post('/ertekeles/diakvalaszt',[App\Http\Controllers\Editcontroller::class,'diakvalaszt']);
     Route::post('/ertekeles/tarolas',[App\Http\Controllers\Editcontroller::class,'tarolas']);
+    Route::get('/hianyzas/tantargyvalaszt',[App\Http\Controllers\Editcontroller::class,'tantargyvalaszt']);
+    Route::post('/hianyzas/diakvalaszt',[App\Http\Controllers\Editcontroller::class,'diakvalaszt']);
+    Route::post('/hianyzas/tarolas',[App\Http\Controllers\Editcontroller::class,'tarolas']);
 });
 
 Route::group(['middleware' => 'auth:szulo'], function () {
-    Route::post('/hianyzas/igazol',[App\Http\Controllers\Editcontroller::class,'hianyzastarol']);
+    Route::post('/hianyzas/igazol',[App\Http\Controllers\Editcontroller::class,'igazolastarol']);
 });
 
 
