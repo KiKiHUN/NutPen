@@ -36,7 +36,7 @@ Route::post('/logincheck',[App\Http\Controllers\LoginController::class,'check'])
 
 
 
-Route::group(['middleware' => 'auth:diak,szulo,tanar'], function () {
+Route::group(['middleware' => 'auth:diak,szulo,tanar,admin'], function () {
     Route::get('/Dashboard',[App\Http\Controllers\ElvalasztoController::class,'Dash']);
     Route::get('/fiok',[App\Http\Controllers\ElvalasztoController::class,'fiok']);
     Route::get('/ertekeles',[App\Http\Controllers\ElvalasztoController::class,'ertekeles']);
@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth:diak,szulo,tanar'], function () {
     Route::get('/pwreset',[App\Http\Controllers\pwresetController::class,'resetpage']);
     Route::get('/logout',[App\Http\Controllers\LogoutController::class,'logout']);
 });
+
 
 Route::group(['middleware' => 'auth:tanar'], function () {
     Route::get('/ertekeles/tantargyvalaszt',[App\Http\Controllers\Editcontroller::class,'tantargyvalaszt']);

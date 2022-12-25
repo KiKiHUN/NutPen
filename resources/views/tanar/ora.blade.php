@@ -10,7 +10,7 @@
     </a>
 </li>
 <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
         <i class="fa-solid fa-circle-check"></i>
         <span>
@@ -32,9 +32,23 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="/ora">Órarend</a>
-        <a class="dropdown-item" href="/hianyzas">Hiányzás</a>
     </div>
 </li>
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        aria-haspopup="true" aria-expanded="false">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>
+            Hiányzás/késés <i class="fas fa-angle-down"></i>
+        </span>
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="/hianyzas">Listázás</a>
+        <a class="dropdown-item" href="/hianyzas/tantargyvalaszt">Új</a>
+    </div>
+</li>
+
 
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -62,7 +76,7 @@
                 <h2 class="tm-block-title">Órarend megtekintése</h2>
                 <table id='dtBasicExample' class="table table-bordered table-striped table-sm ">
                     <thead>
-                        <tr>  
+                        <tr>
                             <th></th>
                             <th>Hétfő</th>
                             <th>Kedd</th>

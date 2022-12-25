@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Diak;
-use App\Models\Ertekeles;
-use App\Models\Keses;
 use App\Models\Szulo;
 use App\Models\Tanar;
-use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class ElvalasztoController extends Controller
 {
@@ -30,6 +26,10 @@ class ElvalasztoController extends Controller
             case 't':
                 $user = Tanar::where(['azonosito' => Auth::user()->azonosito])->first();
                 return View('tanar.tanar_dashboard',['user'=>$user]);
+                break;
+            case 'a':
+                $user = Admin::where(['azonosito' => Auth::user()->azonosito])->first();
+                return View('admin.admin_dashboard',['user'=>$user]);
                 break;
         }
    }
@@ -128,7 +128,7 @@ class ElvalasztoController extends Controller
 
                 return View('diak.ora',['orarend'=>$orarend]);
                 break;
-                
+
             case 't':
                 $targyak=DB::table('tantargies')->join('tanoras', function ($join) {
                     $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
@@ -137,9 +137,9 @@ class ElvalasztoController extends Controller
                     $join->on('tanars.azonosito', '=', 'tanoras.Tanar_azonosito');
                 })->where('tanoras.Tanar_azonosito','=',Auth::user()->azonosito)
                 ->get();
-
                 return View('tanar.ora',['targyak'=>$targyak]);
                 break;
+
         }
    }
 

@@ -10,27 +10,6 @@
         <span class="sr-only">(current)</span>
     </a>
 </li>
-
-<li class="nav-item">
-    <a class="nav-link" href="/ertekeles">
-        <i class="fa-solid fa-cross"></i>
-        Értékelések
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/ora">
-        <i class="fa-solid fa-clock"></i>
-        Órarend
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/hianyzas">
-        <i class="fa-solid fa-person-circle-question"></i>
-        Hiányzások
-    </a>
-</li>
-
-
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">

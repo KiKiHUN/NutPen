@@ -52,6 +52,10 @@ return [
             'driver' => 'session',
             'provider' => 'szulok',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'adminok',
+        ],
     ],
 
     /*
@@ -87,6 +91,10 @@ return [
         'szulok' => [
             'driver' => 'eloquent',
             'model' => App\Models\Szulo::class,
+        ],
+        'adminok' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [

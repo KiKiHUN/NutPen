@@ -1,20 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Diak;
 use App\Models\Ertekeles;
 use App\Models\Keses;
-use App\Models\Szulo;
-use App\Models\Tanar;
-use DateTime;
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
-use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class Editcontroller extends Controller
 {

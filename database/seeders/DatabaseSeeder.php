@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
     //                 \App\Models\diaks_tanoras::factory(50)->create();
     //                  \App\Models\Ertekeles::factory(50)->create();
     //                   \App\Models\Keses::factory(20)->create();
+    //                    \App\Models\Admin::factory(1)->create();
     }
 }

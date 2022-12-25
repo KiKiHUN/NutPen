@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Diak;
 use App\Models\Szulo;
 use App\Models\Tanar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Psy\Readline\Hoa\ConsoleOutput;
-use Symfony\Component\Console\Input\Input;
-use Symfony\Component\ErrorHandler\Debug;
 
 class LoginController extends Controller
 {
@@ -28,7 +26,6 @@ class LoginController extends Controller
                     'azonosito' => $azonosito,
                     'jelszo' => hasheles($jelszo)
                 ])->first();
-
                 if ($user)
                 {
                     Auth::guard('diak')->login($user);
@@ -65,6 +62,20 @@ class LoginController extends Controller
                     return redirect('/login')->with('voltproba', true);
                 }
                 break;
+                case 'a':
+                    $user = Admin::where([
+                        'azonosito' => $azonosito,
+                        'jelszo' => hasheles($jelszo)
+                    ])->first();
+
+                    if ($user)
+                    {
+                        Auth::guard('admin')->login($user);
+                        return redirect('/Dashboard');
+                    }else {
+                        return redirect('/login')->with('voltproba', true);
+                    }
+                    break;
             default:
                 return redirect('/login')->with('voltproba', true);
                 break;
