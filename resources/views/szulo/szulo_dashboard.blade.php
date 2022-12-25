@@ -18,12 +18,6 @@
     </a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="/ora">
-        <i class="fa-solid fa-clock"></i>
-        Órarend
-    </a>
-</li>
-<li class="nav-item">
     <a class="nav-link" href="/hianyzas">
         <i class="fa-solid fa-person-circle-question"></i>
         Hiányzások
