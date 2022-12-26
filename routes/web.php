@@ -36,7 +36,7 @@ Route::post('/logincheck',[App\Http\Controllers\LoginController::class,'check'])
 
 
 
-Route::group(['middleware' => 'auth:diak,szulo,tanar'], function () {
+Route::group(['middleware' => 'auth:diak,szulo,tanar,admin'], function () {
     Route::get('/Dashboard',[App\Http\Controllers\ElvalasztoController::class,'Dash']);
     Route::get('/fiok',[App\Http\Controllers\ElvalasztoController::class,'fiok']);
     Route::get('/ertekeles',[App\Http\Controllers\ElvalasztoController::class,'ertekeles']);
@@ -63,12 +63,6 @@ Route::group(['middleware' => 'auth:szulo'], function () {
 
 
 Route::group(['middleware' => 'auth:admin'], function () {
-    Route::get('/ora',[App\Http\Controllers\ElvalasztoController::class,'ora']);
-    Route::get('/logout',[App\Http\Controllers\LogoutController::class,'logout']);
-    Route::post('/pwreset/save',[App\Http\Controllers\pwresetController::class,'check']);
-    Route::get('/pwreset',[App\Http\Controllers\pwresetController::class,'resetpage']);
-    Route::get('/Dashboard',[App\Http\Controllers\ElvalasztoController::class,'Dash']);
-    Route::get('/fiok',[App\Http\Controllers\ElvalasztoController::class,'fiok']);
     Route::get('/felhasznalok',[App\Http\Controllers\ElvalasztoController::class,'felhListazas']);
     Route::get('/felhasznalok/uj',[App\Http\Controllers\ElvalasztoController::class,'felhHozzaad']);
     Route::post('/felhasznalok/ujFelh',[App\Http\Controllers\Editcontroller::class,'felhMentes']);
