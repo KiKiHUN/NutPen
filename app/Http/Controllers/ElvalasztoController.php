@@ -66,6 +66,7 @@ class ElvalasztoController extends Controller
                 break;
         }
    }
+
    public function hianyzas()
    {
     $azonositoValaszto = mb_substr(Auth::user()->azonosito, 0, 1);
@@ -207,15 +208,77 @@ class ElvalasztoController extends Controller
         $result = $diakok->merge($tanarok)->merge($szulok);
         return View('admin.Felh',['status'=>0,'felhasznalok'=>$result]);
    }
+
    public function felhHozzaad()
    {
     $felhTipus=DB::table('felh_tipuses')->select(['felh_tipuses.Tipus','felh_tipuses.ID'])->get();
     return View('admin.Felh',['status'=>1,'felhTipus'=>$felhTipus]);
    }
+
    public function oraFelvetel()
    {
        $tanarok = DB::table('tanars')->select(['tanars.vnev', 'tanars.knev', 'tanars.azonosito'])->get();
        $tantargyak = DB::table('tantargies')->select(['tantargies.nev', 'tantargies.ID'])->get();
        return View('admin.ora', ['status' => 1, 'tanarok' => $tanarok,'tantargyak'=>$tantargyak]);
+   }
+
+
+
+   public function diakSzuloListazas()
+   {
+    $kapcsolatok=DB::table('diaks_szulos')->select(['diaks.vnev  as diak_vnev','diaks.knev as diak_knev','diaks.azonosito as diak_azon','szulos.vnev as szulo_vnev','szulos.knev as szulo_knev','szulos.azonosito as szulo_azon'])
+    ->join('diaks', function ($join) {
+        $join->on('diaks_szulos.diak_azonosito', '=', 'diaks.azonosito');
+    })
+    ->join('szulos', function ($join) {
+        $join->on('diaks_szulos.szulo_azonosito', '=', 'szulos.azonosito');
+    })
+    ->get();
+    return View('admin.diakSzuloKapcsolat',['status'=>0,'kapcsolatok'=>$kapcsolatok]);
+   }
+   public function diakSzuloHozzaad()
+   {
+    $diakok=DB::table('diaks')->select(['diaks.vnev','diaks.knev','diaks.azonosito','felh_tipuses.Tipus'])
+    ->join('felh_tipuses', function ($join) {
+        $join->on('felh_tipuses.ID', '=', 'diaks.felh_tipus_ID');
+    })->get();
+    $szulok=DB::table('szulos')->select(['szulos.vnev','szulos.knev','szulos.azonosito','felh_tipuses.Tipus'])
+    ->join('felh_tipuses', function ($join) {
+        $join->on('felh_tipuses.ID', '=', 'szulos.felh_tipus_ID');
+    })->get();
+    return View('admin.diakSzuloKapcsolat',['status'=>1,'diakok'=>$diakok,'szulok'=>$szulok]);
+   }
+
+
+   public function diakOraListazas()
+   {
+    $kapcsolatok=DB::table('diaks_tanoras')->select(['diaks.vnev  as diak_vnev','diaks.knev as diak_knev','diaks.azonosito as diak_azon','tantargies.nev','tanoras.kezdet','tanoras.veg','tanars.azonosito as tanar_azon','tanars.vnev as tanar_vnev','tanars.knev as tanar_knev'])
+    ->join('diaks', function ($join) {
+        $join->on('diaks_tanoras.diak_azonosito', '=', 'diaks.azonosito');
+    })
+    ->join('tanoras', function ($join) {
+        $join->on('diaks_tanoras.tanora_ID', '=', 'tanoras.ID');
+    })
+    ->join('tantargies', function ($join) {
+        $join->on('tanoras.tantargy_ID', '=', 'tantargies.ID');
+    })
+    ->join('tanars', function ($join) {
+        $join->on('tanoras.tanar_azonosito', '=', 'tanars.azonosito');
+    })
+    ->get();
+    return View('admin.diakOraKapcsolat',['status'=>0,'kapcsolatok'=>$kapcsolatok]);
+   }
+   public function diakOraHozzaad()
+   {
+    $diakok=DB::table('diaks')->select(['diaks.vnev','diaks.knev','diaks.azonosito'])->get();
+
+    $tanorak=DB::table('tanoras')->select(['tanoras.id','tantargies.nev','tanoras.kezdet','tanoras.veg',"tanars.vnev","tanars.knev","tanars.azonosito"])
+    ->join('tantargies', function ($join) {
+        $join->on('tanoras.tantargy_ID', '=', 'tantargies.ID');
+    })
+    ->join('tanars', function ($join) {
+        $join->on('tanoras.tanar_azonosito', '=', 'tanars.azonosito');
+    })->get();
+    return View('admin.diakOraKapcsolat',['status'=>1,'diakok'=>$diakok,'tanorak'=>$tanorak]);
    }
 }

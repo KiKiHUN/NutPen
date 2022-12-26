@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\general;
+use App\Models\diaks_szulos;
+use App\Models\diaks_tanoras;
 use Faker\Factory as Faker;
 
 class Editcontroller extends Controller
@@ -242,12 +244,38 @@ class Editcontroller extends Controller
                 $f->azonosito= $azon;
                 $f->jelszo= $hash;
                 $f->save();
-                return redirect('/felhasznalok');
+                $a='Sikeres mentés. Azonosító: '.$azon;
+                return redirect('/felhasznalok')->with('message', $a);
             } catch (\Throwable $th) {
                 return redirect()->back()->with('alert', 'Sikertelen mentés');
             }
         }
         else {
+            return redirect()->back()->with('alert', 'Sikertelen mentés');
+        }
+    }
+
+    public function diakSzuloMentes(Request $request)
+    {
+        try{
+            $a=new diaks_szulos();
+            $a->Diak_azonosito=$request->diak;
+            $a->Szulo_azonosito=$request->szulo;
+            $a->save();
+            return redirect('/kapcsolat/szulo');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('alert', 'Sikertelen mentés');
+        }
+    }
+    public function diakOraMentes(Request $request)
+    {
+        try{
+            $a=new diaks_tanoras();
+            $a->Diak_azonosito=$request->diak;
+            $a->Tanora_ID=$request->tanora;
+            $a->save();
+            return redirect('/kapcsolat/ora');
+        } catch (\Throwable $th) {
             return redirect()->back()->with('alert', 'Sikertelen mentés');
         }
     }

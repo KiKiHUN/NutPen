@@ -13,7 +13,7 @@
 
 
     <li class="nav-item dropdown ">
-        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="fa-solid fa-clock"></i>
             <span>
@@ -27,7 +27,7 @@
     </li>
 
     <li class="nav-item dropdown ">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="fa-solid fa-clock"></i>
             <span>
@@ -37,6 +37,32 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/felhasznalok">Listázás</a>
             <a class="dropdown-item" href="/felhasznalok/uj">Új</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-link"></i>
+            <span>
+                Diák-Szülő Kapcsolat <i class="fas fa-angle-down"></i>
+            </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/kapcsolat/szulo ">Listázás</a>
+            <a class="dropdown-item" href="/kapcsolat/szulo/uj">Új</a>
+        </div>
+    </li>
+    <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-link"></i>
+            <span>
+                Diák-Tanóra Kapcsolat <i class="fas fa-angle-down"></i>
+            </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/kapcsolat/ora ">Listázás</a>
+            <a class="dropdown-item" href="/kapcsolat/ora/uj">Új</a>
         </div>
     </li>
 

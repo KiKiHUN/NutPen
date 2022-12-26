@@ -11,7 +11,7 @@
 
 
     <li class="nav-item dropdown ">
-        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="fa-solid fa-clock"></i>
             <span>
@@ -38,7 +38,7 @@
         </div>
     </li>
     <li class="nav-item dropdown ">
-        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="fa-solid fa-link"></i>
             <span>
@@ -89,51 +89,47 @@
             <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 
                     @if($status==0)
-                    <h2 class="tm-block-title">Összes óra</h2>
+                    <h2 class="tm-block-title">Összes diák-szülő kapcsolat</h2>
                     <table id='dtBasicExample' class="table table-bordered table-striped table-sm ">
                         <thead>
                             <tr>
-                                <th class="th-sm">ID</th>
-                                <th class="th-sm">Tantárgy</th>
-                                <th class="th-sm">Kezdet</th>
-                                <th class="th-sm">Vég</th>
-                                <th class="th-sm">Tanár, azonosíto</th>
+                                <th class="th-sm">Szülő azonosító</th>
+                                <th class="th-sm">Szülő név</th>
+                                <th class="th-sm">Diák azonosító</th>
+                                <th class="th-sm">Diák név</th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
-                            @foreach ($targyak as $item)
+                            @foreach ($kapcsolatok as $item)
                                 <tr>
-                                    <td>{{ $item->ID }}</td>
-                                    <td>{{ $item->nev }}</td>
-                                    <td>{{ $item->kezdet }}</td>
-                                    <td>{{ $item->veg }}</td>
-                                    <td>{{ $item->vnev . ' ' . $item->knev . ', ' . $item->azonosito }}</b></td>
+                                    <td>{{ $item->szulo_azon }}</td>
+                                    <td>{{ $item->szulo_vnev." ". $item->szulo_knev }}</td>
+                                    <td>{{ $item->diak_azon }}</td>
+                                    <td>{{ $item->diak_vnev." ". $item->diak_knev}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                     @endif
                     @if($status==1)
-                    <h2 class="tm-block-title">Óra hozzáadás</h2>
+                    <h2 class="tm-block-title">Új diák-szülő kapcsolat</h2>
                         <div>
-                            <form  id="ujOra" action="/ora/ujOra" method="post">
+                            <form  id="ujFelh" action="/kapcsolat/szulo/ujkapcs" method="post">
                                 @csrf
-                            <label for="kezdet">Kezdet: </label>
-                            <input type="datetime-local" id="kezdet" name="kezdet" value="" min="2000-06-07T00:00" max="2500-06-14T00:00" required>
-                            <label for="veg">Veg: </label>
-                            <input type="datetime-local"  id="veg" name="veg" value="" min="2000-06-07T00:00" max="2500-06-14T00:00" required>
-                            <label for="tanarok">Tanár: </label>
-                            <select id="tanarok" name="tanarok" >
-                                @foreach ($tanarok as $tanar)
-                                <option value="{{ $tanar->azonosito }}">{{ $tanar->azonosito ." //// ".  $tanar->vnev." ".$tanar->knev }}</option>
-                                @endforeach
-                              </select>
-                              <select id="tantargyak" name="tantargyak"  >
-                                @foreach ($tantargyak as $tantargy)
-                                <option value="{{ $tantargy->ID }}">{{ $tantargy->nev}}</option>
-                                @endforeach
-                              </select>
-                              <input type="submit" value="Mentés" class=" btn-success">
+
+                                <label for="diak">Diák: </label>
+                                <select id="diak" name="diak" >
+                                    @foreach ($diakok as $diak)
+                                        <option value="{{ $diak->azonosito }}">{{ $diak->azonosito."  //  ". $diak->vnev." ". $diak->knev}}</option>
+                                    @endforeach
+                                </select>
+                                <label for="szulo">Szülő: </label>
+                                <select id="szulo" name="szulo" >
+                                    @foreach ($szulok as $szulo)
+                                        <option value="{{ $szulo->azonosito }}">{{ $szulo->azonosito."  //  ". $szulo->vnev." ". $szulo->knev}}</option>
+                                    @endforeach
+                                </select>
+                                <input type="submit" value="Mentés" class=" btn-success">
                             </form>
                         </div>
                     @endif

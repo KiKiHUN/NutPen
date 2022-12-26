@@ -63,9 +63,18 @@ Route::group(['middleware' => 'auth:szulo'], function () {
 
 
 Route::group(['middleware' => 'auth:admin'], function () {
+    Route::get('/kapcsolat/szulo',[App\Http\Controllers\ElvalasztoController::class,'diakSzuloListazas']);
+    Route::get('/kapcsolat/szulo/uj',[App\Http\Controllers\ElvalasztoController::class,'diakSzuloHozzaad']);
+    Route::post('/kapcsolat/szulo/ujkapcs',[App\Http\Controllers\Editcontroller::class,'diakSzuloMentes']);
+
+    Route::get('/kapcsolat/ora',[App\Http\Controllers\ElvalasztoController::class,'diakOraListazas']);
+    Route::get('/kapcsolat/ora/uj',[App\Http\Controllers\ElvalasztoController::class,'diakOraHozzaad']);
+    Route::post('/kapcsolat/ora/ujkapcs',[App\Http\Controllers\Editcontroller::class,'diakOraMentes']);
+
     Route::get('/felhasznalok',[App\Http\Controllers\ElvalasztoController::class,'felhListazas']);
     Route::get('/felhasznalok/uj',[App\Http\Controllers\ElvalasztoController::class,'felhHozzaad']);
     Route::post('/felhasznalok/ujFelh',[App\Http\Controllers\Editcontroller::class,'felhMentes']);
+
     Route::get('/ora/uj',[App\Http\Controllers\ElvalasztoController::class,'oraFelvetel']);
     Route::post('/ora/ujOra',[App\Http\Controllers\Editcontroller::class,'oramentes']);
 });
