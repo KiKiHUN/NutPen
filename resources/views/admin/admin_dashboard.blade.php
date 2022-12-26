@@ -3,67 +3,57 @@
 @extends('layout')
 
 @section('navbar')
-<li class="nav-item">
-    <a class="nav-link active" href="/Dashboard">
-        <i class="fa-solid fa-house-chimney"></i>
-        Főoldal
-        <span class="sr-only">(current)</span>
-    </a>
-</li>
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <i class="fa-solid fa-circle-check"></i>
-        <span>
-            Értékelés <i class="fas fa-angle-down"></i>
-        </span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="/ertekeles">Listázás</a>
-        <a class="dropdown-item" href="/ertekeles/tantargyvalaszt">Új</a>
-    </div>
-</li>
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <i class="fa-solid fa-clock"></i>
-        <span>
-            Órák <i class="fas fa-angle-down"></i>
-        </span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="/ora">Órarend</a>
-    </div>
-</li>
-
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <i class="fa-solid fa-circle-check"></i>
-        <span>
-            Hiányzás/késés <i class="fas fa-angle-down"></i>
-        </span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="/hianyzas">Listázás</a>
-        <a class="dropdown-item" href="/hianyzas/tantargyvalaszt">Új</a>
-    </div>
-</li>
+    <li class="nav-item">
+        <a class="nav-link active" href="/Dashboard">
+            <i class="fa-solid fa-house-chimney"></i>
+            Főoldal
+            <span class="sr-only">(current)</span>
+        </a>
+    </li>
 
 
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-cog"></i>
-        <span>
-            Beállítások <i class="fas fa-angle-down"></i>
-        </span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="/fiok">Fiók</a>
-        <a class="dropdown-item" href="/logout">Kilépés</a>
-    </div>
-</li>
+    <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-clock"></i>
+            <span>
+                Óra <i class="fas fa-angle-down"></i>
+            </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/ora">Listázás</a>
+            <a class="dropdown-item" href="/ora/uj">Új</a>
+        </div>
+    </li>
+
+    <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-clock"></i>
+            <span>
+                Felhasználó <i class="fas fa-angle-down"></i>
+            </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/felhasznalok">Listázás</a>
+            <a class="dropdown-item" href="/felhasznalok/uj">Új</a>
+        </div>
+    </li>
+
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+            <span>
+                Beállítások <i class="fas fa-angle-down"></i>
+            </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/fiok">Fiók</a>
+            <a class="dropdown-item" href="/logout">Kilépés</a>
+        </div>
+    </li>
 @endsection
 
     @section('content')

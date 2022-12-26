@@ -40,14 +40,9 @@ class ElvalasztoController extends Controller
 
         switch ($azonositoValaszto) {
             case 'd':
-
-
-
                 $user=DB::table('diaks')->join('felh_tipuses', function ($join) {
                     $join->on('diaks.felh_tipus_ID', '=', 'felh_tipuses.ID')->where('diaks.azonosito', '=', Auth::user()->azonosito);
             })->first();
-
-
                 return View('info',['user'=>$user]);
                 break;
             case 's':
@@ -60,6 +55,12 @@ class ElvalasztoController extends Controller
             case 't':
                 $user=DB::table('tanars')->join('felh_tipuses', function ($join) {
                     $join->on('tanars.felh_tipus_ID', '=', 'felh_tipuses.ID')->where('tanars.azonosito', '=', Auth::user()->azonosito);
+                })->first();
+                return View('info',['user'=>$user]);
+                break;
+            case 'a':
+                $user=DB::table('admins')->join('felh_tipuses', function ($join) {
+                    $join->on('admins.felh_tipus_ID', '=', 'felh_tipuses.ID')->where('admins.azonosito', '=', Auth::user()->azonosito);
                 })->first();
                 return View('info',['user'=>$user]);
                 break;
@@ -139,6 +140,17 @@ class ElvalasztoController extends Controller
                 ->get();
                 return View('tanar.ora',['targyak'=>$targyak]);
                 break;
+            case 'a':
+                $targyak=DB::table('tantargies')->select(['tanoras.ID','tanars.vnev','tanars.knev','tantargies.nev','tanars.azonosito','tanoras.kezdet','tanoras.veg'])
+                ->join('tanoras', function ($join) {
+                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
+                })
+                ->join('tanars', function ($join) {
+                    $join->on('tanars.azonosito', '=', 'tanoras.Tanar_azonosito');
+                })
+                ->orderBy("tanoras.kezdet", 'DESC')
+                ->get();
+                return View('admin.ora',['status'=>0,'targyak'=>$targyak]);
 
         }
    }
@@ -176,5 +188,34 @@ class ElvalasztoController extends Controller
                         return View('tanar.ertekeles',['status'=>0,'adatok'=>$adatok]);
                 break;
         }
+   }
+
+   public function felhListazas()
+   {
+        $diakok=DB::table('diaks')->select(['diaks.vnev','diaks.knev','diaks.azonosito','felh_tipuses.Tipus'])
+        ->join('felh_tipuses', function ($join) {
+            $join->on('felh_tipuses.ID', '=', 'diaks.felh_tipus_ID');
+        })->get();
+        $tanarok=DB::table('tanars')->select(['tanars.vnev','tanars.knev','tanars.azonosito','felh_tipuses.Tipus'])
+        ->join('felh_tipuses', function ($join) {
+            $join->on('felh_tipuses.ID', '=', 'tanars.felh_tipus_ID');
+        })->get();
+        $szulok=DB::table('szulos')->select(['szulos.vnev','szulos.knev','szulos.azonosito','felh_tipuses.Tipus'])
+        ->join('felh_tipuses', function ($join) {
+            $join->on('felh_tipuses.ID', '=', 'szulos.felh_tipus_ID');
+        })->get();
+        $result = $diakok->merge($tanarok)->merge($szulok);
+        return View('admin.Felh',['status'=>0,'felhasznalok'=>$result]);
+   }
+   public function felhHozzaad()
+   {
+    $felhTipus=DB::table('felh_tipuses')->select(['felh_tipuses.Tipus','felh_tipuses.ID'])->get();
+    return View('admin.Felh',['status'=>1,'felhTipus'=>$felhTipus]);
+   }
+   public function oraFelvetel()
+   {
+       $tanarok = DB::table('tanars')->select(['tanars.vnev', 'tanars.knev', 'tanars.azonosito'])->get();
+       $tantargyak = DB::table('tantargies')->select(['tantargies.nev', 'tantargies.ID'])->get();
+       return View('admin.ora', ['status' => 1, 'tanarok' => $tanarok,'tantargyak'=>$tantargyak]);
    }
 }

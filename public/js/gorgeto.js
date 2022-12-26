@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
     $("#myInput").on("keyup", function() {
       var value = $(this).val().toLowerCase();
@@ -6,6 +7,7 @@ $(document).ready(function(){
       });
     });
     $('#dtBasicExample').dataTable( {
+        order: [[0, 'desc']],
         "language": {
           "search": "Keresés:",
           "lengthMenu": " _MENU_ elem megjelenítése",
@@ -14,4 +16,5 @@ $(document).ready(function(){
         }
       } );
   });
+
 
