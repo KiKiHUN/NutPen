@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 
 class ElvalasztoController extends Controller
 {
+
+//////////////    Mindneki    //////////////
    public function Dash()
    {
         $azonositoValaszto = mb_substr(Auth::user()->azonosito, 0, 1);
@@ -66,6 +68,90 @@ class ElvalasztoController extends Controller
                 break;
         }
    }
+////////////////////////////////////////////
+
+
+
+//////////////  Diák Tanár Admin   //////////////
+   public function ora()
+   {
+        $azonositoValaszto = mb_substr(Auth::user()->azonosito, 0, 1);
+
+        switch ($azonositoValaszto) {
+            case 'd':
+                $orarend=DB::table('tantargies')->join('tanoras', function ($join) {
+                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
+                })
+                ->join('diaks_tanoras', function ($join) {
+                    $join->on('diaks_tanoras.Tanora_ID', '=', 'tanoras.ID');
+                })->where('diaks_tanoras.Diak_azonosito','=',Auth::user()->azonosito)
+                ->get();
+
+                return View('diak.ora',['orarend'=>$orarend]);
+                break;
+
+            case 't':
+                $targyak=DB::table('tantargies')->join('tanoras', function ($join) {
+                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
+                })
+                ->join('tanars', function ($join) {
+                    $join->on('tanars.azonosito', '=', 'tanoras.Tanar_azonosito');
+                })->where('tanoras.Tanar_azonosito','=',Auth::user()->azonosito)
+                ->get();
+                return View('tanar.ora',['targyak'=>$targyak]);
+                break;
+            case 'a':
+                $targyak=DB::table('tantargies')->select(['tanoras.ID','tanars.vnev','tanars.knev','tantargies.nev','tanars.azonosito','tanoras.kezdet','tanoras.veg'])
+                ->join('tanoras', function ($join) {
+                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
+                })
+                ->join('tanars', function ($join) {
+                    $join->on('tanars.azonosito', '=', 'tanoras.Tanar_azonosito');
+                })
+                ->orderBy("tanoras.kezdet", 'DESC')
+                ->get();
+                return View('admin.ora',['status'=>0,'targyak'=>$targyak]);
+
+        }
+   }
+/////////////////////////////////////////////////
+
+
+//////////////  Diák szülő Tanár  //////////////
+   public function ertekeles()
+   {
+        $azonositoValaszto = mb_substr(Auth::user()->azonosito, 0, 1);
+
+        switch ($azonositoValaszto) {
+            case 'd':
+                $ertekelesek=DB::table('ertekeles')->join('diaks', function ($join) {
+                    $join->on('diaks.azonosito', '=', 'ertekeles.Diak_azonosito')->where('Diak_azonosito', '=', Auth::user()->azonosito);
+            })->orderBy('datum','desc')->get();
+
+                return View('diak.ertekeles',['ertekelesek'=>$ertekelesek]);
+                break;
+            case 's':
+
+                $gyerekek=DB::table('diaks_szulos')->where('Szulo_azonosito', '=', Auth::user()->azonosito)->get();
+                return View('szulo.ertekeles',['gyerekek'=>$gyerekek]);
+                break;
+            case 't':
+                    $adatok=DB::table('diaks')->select(['diaks.vnev','diaks.knev','diaks.azonosito','tantargies.nev','ertekeles.Tanar_Azonosito','ertekeles.jegy','ertekeles.datum'])
+                        ->join('ertekeles', function ($join) {
+                        $join->on('diaks.azonosito', '=', 'ertekeles.Diak_azonosito');
+                        })
+                        ->join('tanars', function ($join) {
+                            $join->on('tanars.azonosito', '=', 'ertekeles.Tanar_Azonosito');
+                        })
+                        ->join('tantargies', function ($join) {
+                            $join->on('tantargies.ID', '=', 'ertekeles.Tantargy_ID');
+                        })->where([
+                            ['ertekeles.Tanar_Azonosito', '=', Auth::user()->azonosito ]
+                        ])->get();
+                        return View('tanar.ertekeles',['status'=>0,'adatok'=>$adatok]);
+                break;
+        }
+   }
 
    public function hianyzas()
    {
@@ -113,84 +199,10 @@ class ElvalasztoController extends Controller
             break;
     }
    }
+////////////////////////////////////////////////
 
-   public function ora()
-   {
-        $azonositoValaszto = mb_substr(Auth::user()->azonosito, 0, 1);
 
-        switch ($azonositoValaszto) {
-            case 'd':
-                $orarend=DB::table('tantargies')->join('tanoras', function ($join) {
-                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
-                })
-                ->join('diaks_tanoras', function ($join) {
-                    $join->on('diaks_tanoras.Tanora_ID', '=', 'tanoras.ID');
-                })->where('diaks_tanoras.Diak_azonosito','=',Auth::user()->azonosito)
-                ->get();
-
-                return View('diak.ora',['orarend'=>$orarend]);
-                break;
-
-            case 't':
-                $targyak=DB::table('tantargies')->join('tanoras', function ($join) {
-                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
-                })
-                ->join('tanars', function ($join) {
-                    $join->on('tanars.azonosito', '=', 'tanoras.Tanar_azonosito');
-                })->where('tanoras.Tanar_azonosito','=',Auth::user()->azonosito)
-                ->get();
-                return View('tanar.ora',['targyak'=>$targyak]);
-                break;
-            case 'a':
-                $targyak=DB::table('tantargies')->select(['tanoras.ID','tanars.vnev','tanars.knev','tantargies.nev','tanars.azonosito','tanoras.kezdet','tanoras.veg'])
-                ->join('tanoras', function ($join) {
-                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
-                })
-                ->join('tanars', function ($join) {
-                    $join->on('tanars.azonosito', '=', 'tanoras.Tanar_azonosito');
-                })
-                ->orderBy("tanoras.kezdet", 'DESC')
-                ->get();
-                return View('admin.ora',['status'=>0,'targyak'=>$targyak]);
-
-        }
-   }
-
-   public function ertekeles()
-   {
-        $azonositoValaszto = mb_substr(Auth::user()->azonosito, 0, 1);
-
-        switch ($azonositoValaszto) {
-            case 'd':
-                $ertekelesek=DB::table('ertekeles')->join('diaks', function ($join) {
-                    $join->on('diaks.azonosito', '=', 'ertekeles.Diak_azonosito')->where('Diak_azonosito', '=', Auth::user()->azonosito);
-            })->orderBy('datum','desc')->get();
-
-                return View('diak.ertekeles',['ertekelesek'=>$ertekelesek]);
-                break;
-            case 's':
-
-                $gyerekek=DB::table('diaks_szulos')->where('Szulo_azonosito', '=', Auth::user()->azonosito)->get();
-                return View('szulo.ertekeles',['gyerekek'=>$gyerekek]);
-                break;
-            case 't':
-                    $adatok=DB::table('diaks')->select(['diaks.vnev','diaks.knev','diaks.azonosito','tantargies.nev','ertekeles.Tanar_Azonosito','ertekeles.jegy','ertekeles.datum'])
-                        ->join('ertekeles', function ($join) {
-                        $join->on('diaks.azonosito', '=', 'ertekeles.Diak_azonosito');
-                        })
-                        ->join('tanars', function ($join) {
-                            $join->on('tanars.azonosito', '=', 'ertekeles.Tanar_Azonosito');
-                        })
-                        ->join('tantargies', function ($join) {
-                            $join->on('tantargies.ID', '=', 'ertekeles.Tantargy_ID');
-                        })->where([
-                            ['ertekeles.Tanar_Azonosito', '=', Auth::user()->azonosito ]
-                        ])->get();
-                        return View('tanar.ertekeles',['status'=>0,'adatok'=>$adatok]);
-                break;
-        }
-   }
-
+//////////////    Admin   //////////////
    public function felhListazas()
    {
         $diakok=DB::table('diaks')->select(['diaks.vnev','diaks.knev','diaks.azonosito','felh_tipuses.Tipus'])
@@ -222,8 +234,6 @@ class ElvalasztoController extends Controller
        return View('admin.ora', ['status' => 1, 'tanarok' => $tanarok,'tantargyak'=>$tantargyak]);
    }
 
-
-
    public function diakSzuloListazas()
    {
     $kapcsolatok=DB::table('diaks_szulos')->select(['diaks.vnev  as diak_vnev','diaks.knev as diak_knev','diaks.azonosito as diak_azon','szulos.vnev as szulo_vnev','szulos.knev as szulo_knev','szulos.azonosito as szulo_azon'])
@@ -236,6 +246,7 @@ class ElvalasztoController extends Controller
     ->get();
     return View('admin.diakSzuloKapcsolat',['status'=>0,'kapcsolatok'=>$kapcsolatok]);
    }
+
    public function diakSzuloHozzaad()
    {
     $diakok=DB::table('diaks')->select(['diaks.vnev','diaks.knev','diaks.azonosito','felh_tipuses.Tipus'])
@@ -248,7 +259,6 @@ class ElvalasztoController extends Controller
     })->get();
     return View('admin.diakSzuloKapcsolat',['status'=>1,'diakok'=>$diakok,'szulok'=>$szulok]);
    }
-
 
    public function diakOraListazas()
    {
@@ -268,6 +278,7 @@ class ElvalasztoController extends Controller
     ->get();
     return View('admin.diakOraKapcsolat',['status'=>0,'kapcsolatok'=>$kapcsolatok]);
    }
+
    public function diakOraHozzaad()
    {
     $diakok=DB::table('diaks')->select(['diaks.vnev','diaks.knev','diaks.azonosito'])->get();
@@ -281,4 +292,5 @@ class ElvalasztoController extends Controller
     })->get();
     return View('admin.diakOraKapcsolat',['status'=>1,'diakok'=>$diakok,'tanorak'=>$tanorak]);
    }
+////////////////////////////////////////
 }

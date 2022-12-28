@@ -1,54 +1,50 @@
-
-
 @extends('layout')
 
 @section('navbar')
-<li class="nav-item">
-    <a class="nav-link" href="/Dashboard">
-        <i class="fa-solid fa-house-chimney"></i>
-        Főoldal
-        <span class="sr-only">(current)</span>
-    </a>
-</li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Dashboard">
+            <i class="fa-solid fa-house-chimney"></i>
+            Főoldal
+            <span class="sr-only">(current)</span>
+        </a>
+    </li>
 
-<li class="nav-item">
-    <a class="nav-link active" href="/ertekeles">
-        <i class="fa-solid fa-cross"></i>
-        Értékelések
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/ora">
-        <i class="fa-solid fa-clock"></i>
-        Órarend
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/hianyzas">
-        <i class="fa-solid fa-person-circle-question"></i>
-        Késések
-    </a>
-</li>
+    <li class="nav-item">
+        <a class="nav-link active" href="/ertekeles">
+            <i class="fa-solid fa-cross"></i>
+            Értékelések
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/ora">
+            <i class="fa-solid fa-clock"></i>
+            Órarend
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/hianyzas">
+            <i class="fa-solid fa-person-circle-question"></i>
+            Késések
+        </a>
+    </li>
 
 
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-cog"></i>
-        <span>
-            Beállítások <i class="fas fa-angle-down"></i>
-        </span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="/fiok">Fiók</a>
-        <a class="dropdown-item" href="/logout">Kilépés</a>
-    </div>
-</li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+            <span>
+                Beállítások <i class="fas fa-angle-down"></i>
+            </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/fiok">Fiók</a>
+            <a class="dropdown-item" href="/logout">Kilépés</a>
+        </div>
+    </li>
 @endsection
 
-    @section('content')
-
-
+@section('content')
     <!-- row -->
     <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
@@ -72,23 +68,31 @@
                     </thead>
                     <tbody>
 
-                            @foreach ($ertekelesek as $item)
+                        @foreach ($ertekelesek as $item)
                             <?php
-                                    $tanar=DB::table('ertekeles')->join('tanars', function ($join) {
-                                        $join->on('tanars.azonosito', '=', 'ertekeles.Tanar_azonosito');
-                                    })->where('tanars.azonosito', '=',$item->Tanar_azonosito)->get()->first();
+                            $tanar = DB::table('ertekeles')
+                                ->join('tanars', function ($join) {
+                                    $join->on('tanars.azonosito', '=', 'ertekeles.Tanar_azonosito');
+                                })
+                                ->where('tanars.azonosito', '=', $item->Tanar_azonosito)
+                                ->get()
+                                ->first();
 
-                                    $tantargy=DB::table('ertekeles')->join('tantargies', function ($join) {
-                                        $join->on('tantargies.ID', '=', 'ertekeles.Tantargy_ID');
-                                    })->where('tantargies.ID', '=',$item->Tantargy_ID)->get()->first();
-                                     ?>
+                            $tantargy = DB::table('ertekeles')
+                                ->join('tantargies', function ($join) {
+                                    $join->on('tantargies.ID', '=', 'ertekeles.Tantargy_ID');
+                                })
+                                ->where('tantargies.ID', '=', $item->Tantargy_ID)
+                                ->get()
+                                ->first();
+                            ?>
                             <tr>
                                 <td>{{ $tantargy->nev }}</td>
-                                <td>{{ $tanar->vnev.' '.$tanar->knev    }}</b></td>
+                                <td>{{ $tanar->vnev . ' ' . $tanar->knev }}</b></td>
                                 <td>{{ $item->jegy }}</td>
                                 <td>{{ $item->datum }}</td>
                             </tr>
-                            @endforeach
+                        @endforeach
 
 
 
@@ -98,5 +102,5 @@
             </div>
         </div>
     </div>
-</div>
-      @endsection
+    </div>
+@endsection

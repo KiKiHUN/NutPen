@@ -1,47 +1,44 @@
-
-
 @extends('layout')
 
 @section('navbar')
-<li class="nav-item">
-    <a class="nav-link active" href="/Dashboard">
-        <i class="fa-solid fa-house-chimney"></i>
-        Főoldal
-        <span class="sr-only">(current)</span>
-    </a>
-</li>
+    <li class="nav-item">
+        <a class="nav-link active" href="/Dashboard">
+            <i class="fa-solid fa-house-chimney"></i>
+            Főoldal
+            <span class="sr-only">(current)</span>
+        </a>
+    </li>
 
-<li class="nav-item">
-    <a class="nav-link" href="/ertekeles">
-        <i class="fa-solid fa-cross"></i>
-        Értékelések
-    </a>
-</li>
-<li class="nav-item">
-    <a class="nav-link" href="/hianyzas">
-        <i class="fa-solid fa-person-circle-question"></i>
-        Hiányzások
-    </a>
-</li>
+    <li class="nav-item">
+        <a class="nav-link" href="/ertekeles">
+            <i class="fa-solid fa-cross"></i>
+            Értékelések
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/hianyzas">
+            <i class="fa-solid fa-person-circle-question"></i>
+            Hiányzások
+        </a>
+    </li>
 
 
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-cog"></i>
-        <span>
-            Beállítások <i class="fas fa-angle-down"></i>
-        </span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="/fiok">Fiók</a>
-        <a class="dropdown-item" href="/logout">Kilépés</a>
-    </div>
-</li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+            <span>
+                Beállítások <i class="fas fa-angle-down"></i>
+            </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/fiok">Fiók</a>
+            <a class="dropdown-item" href="/logout">Kilépés</a>
+        </div>
+    </li>
 @endsection
 
-    @section('content')
-
+@section('content')
     <div class="row">
         <div class="col">
             <p class="text-white mt-5 mb-5">Hello, <b>{{ $user->knev }}</b></p>
@@ -60,7 +57,8 @@
                 <h2 class="tm-block-title">Notification List</h2>
                 <div class="tm-notification-items">
                     <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image"
+                                class="rounded-circle"></div>
                         <div class="media-body">
                             <p class="mb-2"><b>Jessica</b> and <b>6 others</b> sent you new <a href="#"
                                     class="tm-notification-link">product updates</a>. Check new orders.</p>
@@ -68,7 +66,8 @@
                         </div>
                     </div>
                     <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image"
+                                class="rounded-circle"></div>
                         <div class="media-body">
                             <p class="mb-2"><b>Oliver Too</b> and <b>6 others</b> sent you existing <a href="#"
                                     class="tm-notification-link">product updates</a>. Read more reports.</p>
@@ -76,7 +75,8 @@
                         </div>
                     </div>
                     <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image"
+                                class="rounded-circle"></div>
                         <div class="media-body">
                             <p class="mb-2"><b>Victoria</b> and <b>6 others</b> sent you <a href="#"
                                     class="tm-notification-link">order updates</a>. Read order information.</p>
@@ -84,7 +84,8 @@
                         </div>
                     </div>
                     <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image"
+                                class="rounded-circle"></div>
                         <div class="media-body">
                             <p class="mb-2"><b>Laura Cute</b> and <b>6 others</b> sent you <a href="#"
                                     class="tm-notification-link">product records</a>.</p>
@@ -92,7 +93,8 @@
                         </div>
                     </div>
                     <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image"
+                                class="rounded-circle"></div>
                         <div class="media-body">
                             <p class="mb-2"><b>Samantha</b> and <b>6 others</b> sent you <a href="#"
                                     class="tm-notification-link">order stuffs</a>.</p>
@@ -100,7 +102,8 @@
                         </div>
                     </div>
                     <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image"
+                                class="rounded-circle"></div>
                         <div class="media-body">
                             <p class="mb-2"><b>Sophie</b> and <b>6 others</b> sent you <a href="#"
                                     class="tm-notification-link">product updates</a>.</p>
@@ -108,7 +111,8 @@
                         </div>
                     </div>
                     <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="tm-gray-circle"><img src="img/notification-01.jpg" alt="Avatar Image"
+                                class="rounded-circle"></div>
                         <div class="media-body">
                             <p class="mb-2"><b>Lily A</b> and <b>6 others</b> sent you <a href="#"
                                     class="tm-notification-link">product updates</a>.</p>
@@ -116,7 +120,8 @@
                         </div>
                     </div>
                     <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="tm-gray-circle"><img src="img/notification-02.jpg" alt="Avatar Image"
+                                class="rounded-circle"></div>
                         <div class="media-body">
                             <p class="mb-2"><b>Amara</b> and <b>6 others</b> sent you <a href="#"
                                     class="tm-notification-link">product updates</a>.</p>
@@ -124,7 +129,8 @@
                         </div>
                     </div>
                     <div class="media tm-notification-item">
-                        <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image" class="rounded-circle"></div>
+                        <div class="tm-gray-circle"><img src="img/notification-03.jpg" alt="Avatar Image"
+                                class="rounded-circle"></div>
                         <div class="media-body">
                             <p class="mb-2"><b>Cinthela</b> and <b>6 others</b> sent you <a href="#"
                                     class="tm-notification-link">product updates</a>.</p>
@@ -287,5 +293,5 @@
             </div>
         </div>
     </div>
-</div>
-      @endsection
+    </div>
+@endsection

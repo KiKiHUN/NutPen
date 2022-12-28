@@ -20,6 +20,8 @@ use Faker\Factory as Faker;
 
 class Editcontroller extends Controller
 {
+
+///////   Tanár ///////
     public function tantargyvalaszt(Request $request)
     {
         $adatok = DB::table('tanars')->select(['tantargies.nev', 'tantargies.ID', 'tanars.azonosito'])
@@ -113,7 +115,9 @@ class Editcontroller extends Controller
             }
         }
     }
+///////////////////////
 
+///////      Szülő    ///////
     public function igazolastarol()
     {
         DB::table('keses')->select(['keses.igazolva', 'keses.ID'])
@@ -132,8 +136,9 @@ class Editcontroller extends Controller
 
         return redirect('/hianyzas');
     }
+/////////////////////////////
 
-
+///////       admin   ///////
     public function oramentes(Request $request)
     {
         try {
@@ -148,7 +153,6 @@ class Editcontroller extends Controller
             return redirect()->back()->with('alert', 'Sikertelen mentés');
         }
     }
-
 
     public function felhMentes(Request $request)
     {
@@ -267,6 +271,7 @@ class Editcontroller extends Controller
             return redirect()->back()->with('alert', 'Sikertelen mentés');
         }
     }
+
     public function diakOraMentes(Request $request)
     {
         try{
@@ -279,4 +284,5 @@ class Editcontroller extends Controller
             return redirect()->back()->with('alert', 'Sikertelen mentés');
         }
     }
+/////////////////////////////
 }

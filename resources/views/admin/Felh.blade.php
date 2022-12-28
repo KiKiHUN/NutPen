@@ -86,15 +86,17 @@
     <div class="row tm-content-row">
         <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
         </div>
-        @if(session()->has('message'))
-    <div class="alert alert-success">
-        {{ session()->get('message') }}
-    </div>
-@endif
+
+        @if (session()->has('message'))
+            <div class="alert alert-success">
+                {{ session()->get('message') }}
+            </div>
+        @endif
+
         <div class="col-12 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 
-                    @if($status==0)
+                @if ($status == 0)
                     <h2 class="tm-block-title">Összes felhasználó</h2>
                     <table id='dtBasicExample' class="table table-bordered table-striped table-sm ">
                         <thead>
@@ -116,35 +118,36 @@
                             @endforeach
                         </tbody>
                     </table>
-                    @endif
-                    @if($status==1)
+                @endif
+
+                @if ($status == 1)
                     <h2 class="tm-block-title">Új felhasználó</h2>
-                        <div>
-                            <form  id="ujFelh" action="/felhasznalok/ujFelh" method="post">
-                                @csrf
-                                <label for="vnev">Vezetéknév: </label>
-                                <input type="text" id="vnev" name="vnev" value="" required>
-                                <label for="knev">Keresztnév: </label>
-                                <input type="text"  id="knev" name="knev" value=""  required>
-                                <label for="tipus">Típus: </label>
-                                <select id="tipus" name="tipus" >
-                                    @foreach ($felhTipus as $tipus)
-                                        <option value="{{ $tipus->ID }}">{{ $tipus->Tipus  }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="knev">Jelszó: </label>
-                                <input type="password"  id="pw" name="pw" value=""  required>
-                                <input type="submit" value="Mentés" class=" btn-success">
-                            </form>
-                        </div>
-                    @endif
+                    <div>
+                        <form id="ujFelh" action="/felhasznalok/ujFelh" method="post">
+                            @csrf
+                            <label for="vnev">Vezetéknév: </label>
+                            <input type="text" id="vnev" name="vnev" value="" required>
+                            <label for="knev">Keresztnév: </label>
+                            <input type="text" id="knev" name="knev" value="" required>
+                            <label for="tipus">Típus: </label>
+                            <select id="tipus" name="tipus">
+                                @foreach ($felhTipus as $tipus)
+                                    <option value="{{ $tipus->ID }}">{{ $tipus->Tipus }}</option>
+                                @endforeach
+                            </select>
+                            <label for="knev">Jelszó: </label>
+                            <input type="password" id="pw" name="pw" value="" required>
+                            <input type="submit" value="Mentés" class=" btn-success">
+                        </form>
+                    </div>
+                @endif
 
             </div>
         </div>
     </div>
     </div>
 @endsection
-@section('script')
 
-<script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
+@section('script')
+    <script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
 @endsection

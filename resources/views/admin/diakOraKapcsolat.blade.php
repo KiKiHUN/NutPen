@@ -147,6 +147,5 @@
     </div>
 @endsection
 @section('script')
-
-<script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
+    <script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
 @endsection

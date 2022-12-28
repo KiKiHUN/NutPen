@@ -88,7 +88,7 @@
         <div class="col-12 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 
-                    @if($status==0)
+                @if ($status == 0)
                     <h2 class="tm-block-title">Összes diák-szülő kapcsolat</h2>
                     <table id='dtBasicExample' class="table table-bordered table-striped table-sm ">
                         <thead>
@@ -103,43 +103,46 @@
                             @foreach ($kapcsolatok as $item)
                                 <tr>
                                     <td>{{ $item->szulo_azon }}</td>
-                                    <td>{{ $item->szulo_vnev." ". $item->szulo_knev }}</td>
+                                    <td>{{ $item->szulo_vnev . ' ' . $item->szulo_knev }}</td>
                                     <td>{{ $item->diak_azon }}</td>
-                                    <td>{{ $item->diak_vnev." ". $item->diak_knev}}</td>
+                                    <td>{{ $item->diak_vnev . ' ' . $item->diak_knev }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    @endif
-                    @if($status==1)
-                    <h2 class="tm-block-title">Új diák-szülő kapcsolat</h2>
-                        <div>
-                            <form  id="ujFelh" action="/kapcsolat/szulo/ujkapcs" method="post">
-                                @csrf
+                @endif
 
-                                <label for="diak">Diák: </label>
-                                <select id="diak" name="diak" >
-                                    @foreach ($diakok as $diak)
-                                        <option value="{{ $diak->azonosito }}">{{ $diak->azonosito."  //  ". $diak->vnev." ". $diak->knev}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="szulo">Szülő: </label>
-                                <select id="szulo" name="szulo" >
-                                    @foreach ($szulok as $szulo)
-                                        <option value="{{ $szulo->azonosito }}">{{ $szulo->azonosito."  //  ". $szulo->vnev." ". $szulo->knev}}</option>
-                                    @endforeach
-                                </select>
-                                <input type="submit" value="Mentés" class=" btn-success">
-                            </form>
-                        </div>
-                    @endif
+                @if ($status == 1)
+                    <h2 class="tm-block-title">Új diák-szülő kapcsolat</h2>
+                    <div>
+                        <form id="ujFelh" action="/kapcsolat/szulo/ujkapcs" method="post">
+                            @csrf
+
+                            <label for="diak">Diák: </label>
+                            <select id="diak" name="diak">
+                                @foreach ($diakok as $diak)
+                                    <option value="{{ $diak->azonosito }}">
+                                        {{ $diak->azonosito . '  //  ' . $diak->vnev . ' ' . $diak->knev }}</option>
+                                @endforeach
+                            </select>
+                            <label for="szulo">Szülő: </label>
+                            <select id="szulo" name="szulo">
+                                @foreach ($szulok as $szulo)
+                                    <option value="{{ $szulo->azonosito }}">
+                                        {{ $szulo->azonosito . '  //  ' . $szulo->vnev . ' ' . $szulo->knev }}</option>
+                                @endforeach
+                            </select>
+                            <input type="submit" value="Mentés" class=" btn-success">
+                        </form>
+                    </div>
+                @endif
 
             </div>
         </div>
     </div>
     </div>
 @endsection
-@section('script')
 
-<script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
+@section('script')
+    <script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
 @endsection

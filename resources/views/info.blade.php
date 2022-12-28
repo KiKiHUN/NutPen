@@ -1,32 +1,29 @@
-
-
 @extends('layout')
 
 @section('navbar')
-<li class="nav-item">
-    <a class="nav-link" href="/Dashboard">
-        <i class="fa-solid fa-house-chimney"></i>
-        Főoldal
-        <span class="sr-only">(current)</span>
-    </a>
-</li>
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-        aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-cog"></i>
-        <span>
-            Beállítások <i class="fas fa-angle-down"></i>
-        </span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="/fiok">Fiók</a>
-        <a class="dropdown-item" href="/logout">Kilépés</a>
-    </div>
-</li>
+    <li class="nav-item">
+        <a class="nav-link" href="/Dashboard">
+            <i class="fa-solid fa-house-chimney"></i>
+            Főoldal
+            <span class="sr-only">(current)</span>
+        </a>
+    </li>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-cog"></i>
+            <span>
+                Beállítások <i class="fas fa-angle-down"></i>
+            </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/fiok">Fiók</a>
+            <a class="dropdown-item" href="/logout">Kilépés</a>
+        </div>
+    </li>
 @endsection
 
-    @section('content')
-
+@section('content')
     <div class="row">
         <div class="col">
             <br>
@@ -46,4 +43,4 @@
             </div>
         </div>
     </div>
-      @endsection
+@endsection

@@ -88,7 +88,7 @@
         <div class="col-12 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 
-                    @if($status==0)
+                @if ($status == 0)
                     <h2 class="tm-block-title">Összes óra</h2>
                     <table id='dtBasicExample' class="table table-bordered table-striped table-sm ">
                         <thead>
@@ -112,38 +112,42 @@
                             @endforeach
                         </tbody>
                     </table>
-                    @endif
-                    @if($status==1)
+                @endif
+
+                @if ($status == 1)
                     <h2 class="tm-block-title">Óra hozzáadás</h2>
-                        <div>
-                            <form  id="ujOra" action="/ora/ujOra" method="post">
-                                @csrf
+                    <div>
+                        <form id="ujOra" action="/ora/ujOra" method="post">
+                            @csrf
                             <label for="kezdet">Kezdet: </label>
-                            <input type="datetime-local" id="kezdet" name="kezdet" value="" min="2000-06-07T00:00" max="2500-06-14T00:00" required>
+                            <input type="datetime-local" id="kezdet" name="kezdet" value=""
+                                min="2000-06-07T00:00" max="2500-06-14T00:00" required>
                             <label for="veg">Veg: </label>
-                            <input type="datetime-local"  id="veg" name="veg" value="" min="2000-06-07T00:00" max="2500-06-14T00:00" required>
+                            <input type="datetime-local" id="veg" name="veg" value=""
+                                min="2000-06-07T00:00" max="2500-06-14T00:00" required>
                             <label for="tanarok">Tanár: </label>
-                            <select id="tanarok" name="tanarok" >
+                            <select id="tanarok" name="tanarok">
                                 @foreach ($tanarok as $tanar)
-                                <option value="{{ $tanar->azonosito }}">{{ $tanar->azonosito ." //// ".  $tanar->vnev." ".$tanar->knev }}</option>
+                                    <option value="{{ $tanar->azonosito }}">
+                                        {{ $tanar->azonosito . ' //// ' . $tanar->vnev . ' ' . $tanar->knev }}</option>
                                 @endforeach
-                              </select>
-                              <select id="tantargyak" name="tantargyak"  >
+                            </select>
+                            <select id="tantargyak" name="tantargyak">
                                 @foreach ($tantargyak as $tantargy)
-                                <option value="{{ $tantargy->ID }}">{{ $tantargy->nev}}</option>
+                                    <option value="{{ $tantargy->ID }}">{{ $tantargy->nev }}</option>
                                 @endforeach
-                              </select>
-                              <input type="submit" value="Mentés" class=" btn-success">
-                            </form>
-                        </div>
-                    @endif
+                            </select>
+                            <input type="submit" value="Mentés" class=" btn-success">
+                        </form>
+                    </div>
+                @endif
 
             </div>
         </div>
     </div>
     </div>
 @endsection
-@section('script')
 
-<script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
+@section('script')
+    <script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
 @endsection

@@ -66,8 +66,8 @@
                                 @foreach ($lista as $key => $listaitem)
                                     @if ($item->nev == $listaitem[0])
                                         <?php
-                                            $lista[$key][1] += $item->Kesett_perc;
-                                            $talalt = true;
+                                        $lista[$key][1] += $item->Kesett_perc;
+                                        $talalt = true;
                                         ?>
                                     @endif
                                 @endforeach
@@ -125,6 +125,7 @@
     </div>
     </div>
 @endsection
+
 @section('script')
     <script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
 @endsection

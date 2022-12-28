@@ -15,6 +15,7 @@ class pwresetController extends Controller
 
         return view('reset',['azonosito'=>Auth::user()->azonosito]);
     }
+
     function check(Request $request)
     {
         $azonosito=Auth::user()->azonosito;

@@ -45,11 +45,11 @@
         </div>
         @foreach ($gyerekek as $gyerek)
             <?php
-            $gyerekadat = DB::table('diaks')
-                ->where('azonosito', '=', $gyerek->Diak_azonosito)
-                ->get()
-                ->first();
-            $keses = DB::table('keses')
+                $gyerekadat = DB::table('diaks')
+                    ->where('azonosito', '=', $gyerek->Diak_azonosito)
+                    ->get()
+                    ->first();
+                $keses = DB::table('keses')
                 ->selectRaw('keses.ID,diaks_tanoras.Diak_azonosito,Kesett_perc,tanars.vnev,tanars.knev,tantargies.nev,tantargies.leiras,keses.Datum,keses.igazolva')
                 ->join('diaks_tanoras', function ($join) {
                     $join->on('diaks_tanoras.ID', '=', 'keses.Diak_tanora_ID');
@@ -83,20 +83,23 @@
                         <tbody>
                             @foreach ($keses as $item)
                                 @if (!$item->igazolva)
-                                    @if($gyerekadat->elerhetoIgazolasok>0)
+                                    @if ($gyerekadat->elerhetoIgazolasok > 0)
                                         <tr class="hianyzik">
                                             <form id="bekuld_{{ $item->ID }}" action="/hianyzas/igazol" method="post">
                                                 @csrf
-                                                <input type="hidden" id="id" name="id" value="{{ $item->ID }}">
+                                                <input type="hidden" id="id" name="id"
+                                                    value="{{ $item->ID }}">
                                                 <td>{{ $item->vnev . ' ' . $item->knev }}</td>
                                                 <td>{{ $item->nev }}</td>
                                                 <td>{{ $item->Kesett_perc }} perc</td>
                                                 <td>{{ date('Y-m-d', strtotime($item->Datum)) }}</td>
-                                                <td><a href="javascript:{}"onclick="document.getElementById('bekuld_{{ $item->ID }}').submit();"><i class="fa-solid fa-check fa-2x"></i></a></td>
+                                                <td><a
+                                                        href="javascript:{}"onclick="document.getElementById('bekuld_{{ $item->ID }}').submit();"><i
+                                                            class="fa-solid fa-check fa-2x"></i></a></td>
 
                                             </form>
                                         </tr>
-                                        @else
+                                    @else
                                         <tr class="hianyzik">
                                             <td>{{ $item->vnev . ' ' . $item->knev }}</td>
                                             <td>{{ $item->nev }}</td>
@@ -122,6 +125,7 @@
         @endforeach
     </div>
 @endsection
+
 @section('script')
     <script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
 @endsection
