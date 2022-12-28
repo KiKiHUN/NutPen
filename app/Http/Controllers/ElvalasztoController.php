@@ -157,7 +157,7 @@ class ElvalasztoController extends Controller
    {
     $azonositoValaszto = mb_substr(Auth::user()->azonosito, 0, 1);
 
-    switch ($azonositoValaszto) {////////////////////////////nincs kész
+    switch ($azonositoValaszto) {
         case 'd':
             $adat = DB::table('keses')->selectRaw("diaks_tanoras.Diak_azonosito,Kesett_perc,tanars.vnev,tanars.knev,tantargies.nev,tantargies.leiras,keses.Datum,keses.igazolva")
             ->join('diaks_tanoras', function ($join) {
