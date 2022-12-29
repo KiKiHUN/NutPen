@@ -59,7 +59,7 @@
                     </button>
                     @if ($voltProba==true)
                         <br>
-                        <h2 style="color: red">Sikertelen bejelentekzés</h2>
+                        <h2 style="color: red">Sikertelen bejelentkezés</h2>
                     @endif
 
                   </div>

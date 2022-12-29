@@ -55,82 +55,161 @@
 
 <div class="row tm-content-row">
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 tm-block-col">
-        <br>
+        <br></br>
     </div>
-    <div class="col-12 tm-block-col">
+    <div class="col-14 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
                 <h2 class="tm-block-title">Órarend megtekintése</h2>
                 <table id='dtBasicExample' class="table table-bordered table-striped table-sm ">
                     <thead>
                         <tr>  
-                            <th></th>
-                            <th>Hétfő</th>
-                            <th>Kedd</th>
-                            <th>Szerda</th>
-                            <th>Csütörtök</th>
-                            <th>Péntek</th>
+                        <th></th>
+                        <th>07:00</th>
+                        <th>08:00</th>
+                        <th>09:00</th>
+                        <th>10:00</th>
+                        <th>11:00</th>
+                        <th>12:00</th>
+                        <th>13:00</th>
+                        <th>14:00</th>
+                        <th>15:00</th>
+                        <th>16:00</th>
                         </tr>
                     </thead>
-                    <tbody id="myTable">
-                    @foreach ($targyak as $item)
-                            <tr>
-                                <th>08:00-08:45</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>09:00-09:45</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>09:55-10:40</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>10:50-11:35</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>12:00-12:45</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>12:55-13:40</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>13:55-14:40</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
+                <tbody id="myTable">
 
-                            @endforeach
+                <tr>
+                <td>Hétfő</td>
+            <?php $array = array("", "", "", "","","","","","","","","","","","","",""); ?>
+            @foreach($orarend as $subject)
+
+                @if($subject->day == '5'){
+                        <?php $array[$subject->start_time] = $subject->nev; ?>
+                        <?php $array[$subject->end_time] =  $subject->nev; ?>
+                        @if($subject -> end_time - $subject -> start_time >= 2){
+                            <?php $gap_class = $subject -> end_time - $subject -> start_time ?>
+                            <?php $array[$subject->start_time + $gap_class -1] = $subject->nev; ?>
+                        }
+                        @endif
+                } 
+                @endif
+                
+            @endforeach
+            <?php $i = 0; ?>
+            @foreach($array as $item)
+                @if($i >= 7){
+                    <td>{{$item}}</td>
+                }
+                @else{
+                    <?php $i++; ?>
+                }
+                @endif
+            @endforeach
+            </tr>
+
+            <tr>
+            <td>Kedd</td>
+            <?php $array = array("", "", "", "","","","","","","","","","","","","",""); ?>
+               @foreach($orarend as $subject)
+
+                @if($subject->day == '2'){
+                        <?php $array[$subject->start_time] = $subject->nev; ?>
+                        <?php $array[$subject->end_time] = $subject->nev; ?>
+                        @if($subject -> end_time - $subject -> start_time >= 2){
+                            <?php $gap_class = $subject -> end_time - $subject -> start_time ?>
+                            <?php $array[$subject->start_time + $gap_class -1] = $subject->nev; ?>
+                        }
+                        @endif
+                } 
+                @endif
+                
+            @endforeach
+            <?php $i = 0; ?>
+            @foreach($array as $item)
+                @if($i >= 7){
+                    <td>{{$item}}</td>
+                }
+                @else{
+                    <?php $i++; ?>
+                }
+                @endif
+            @endforeach
+            </tr>
+
+            <tr>
+            <td>Szerda</td>
+            <td> <?php echo " " ?> </td>
+            <td> <?php echo " " ?> </td>
+            <td> <?php echo " " ?> </td>
+            <td> <?php echo " " ?> </td>
+            <td> <?php echo " " ?> </td>
+            <td> <?php echo " " ?> </td>
+            <td> <?php echo " " ?> </td>
+            <td> <?php echo " " ?> </td>
+            <td> <?php echo " " ?> </td>
+            <td> <?php echo " " ?> </td>
+            </tr>
+
+            <tr>
+            <td>Csütörtök</td>
+            <?php $array = array("", "", "", "","","","","","","","","","","","","",""); ?>
+
+                 @foreach($orarend as $subject)
+
+                @if($subject->day == '1'){
+                        <?php $array[$subject->start_time] = $subject->nev; ?>
+                        <?php $array[$subject->end_time] = $subject->nev; ?>
+                        @if($subject -> end_time - $subject -> start_time >= 2){
+                            <?php $gap_class = $subject -> end_time - $subject -> start_time ?>
+                            <?php $array[$subject->start_time + $gap_class -1] = $subject->nev; ?>
+                        }
+                        @endif
+                } 
+                @endif
+                
+            @endforeach
+            <?php $i = 0; ?>
+            @foreach($array as $item)
+                @if($i >= 7){
+                    <td>{{$item}}</td>
+                }
+                @else{
+                    <?php $i++; ?>
+                }
+                @endif
+            @endforeach
+            </tr>
+
+            <tr>
+            <td>Péntek</td>
+            <?php $array = array("", "", "", "","","","","","","","","","","","","",""); ?>
+                @foreach($orarend as $subject)
+
+                    @if($subject->day == '4'){
+                        <?php $array[$subject->start_time] = $subject->nev; ?>
+                        <?php $array[$subject->end_time] = $subject->nev; ?>
+                        @if($subject -> end_time - $subject -> start_time >= 2){
+                            <?php $gap_class = $subject -> end_time - $subject -> start_time ?>
+                            <?php $array[$subject->start_time + $gap_class -1] = $subject->nev; ?>
+                        }
+                        @endif
+                    } 
+                    @endif
+                
+                @endforeach
+            <?php $i = 0; ?>
+                @foreach($array as $item)
+                    @if($i >= 7){
+                        <td>{{$item}}</td>
+                    }
+                    @else{
+                        <?php $i++; ?>
+                    }
+                    @endif
+                @endforeach
+            </tr>
+
+                </tbody>
                     </tbody>
             </div>
         </div>

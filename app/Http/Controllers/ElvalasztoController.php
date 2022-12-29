@@ -103,27 +103,15 @@ class ElvalasztoController extends Controller
 
         switch ($azonositoValaszto) {
             case 'd':
-                $orarend=DB::table('tantargies')->join('tanoras', function ($join) {
-                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
-                })
-                ->join('diaks_tanoras', function ($join) {
-                    $join->on('diaks_tanoras.Tanora_ID', '=', 'tanoras.ID');
-                })->where('diaks_tanoras.Diak_azonosito','=',Auth::user()->azonosito)
-                ->get();
+                $subjects = DB::table('tantargies')->get();
 
-                return View('diak.ora',['orarend'=>$orarend]);
+                return View('diak.ora',['subjects' => $subjects]);
                 break;
                 
             case 't':
-                $targyak=DB::table('tantargies')->join('tanoras', function ($join) {
-                    $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
-                })
-                ->join('tanars', function ($join) {
-                    $join->on('tanars.azonosito', '=', 'tanoras.Tanar_azonosito');
-                })->where('tanoras.Tanar_azonosito','=',Auth::user()->azonosito)
-                ->get();
+                $orarend = DB::table('tantargies')->get();
 
-                return View('tanar.ora',['targyak'=>$targyak]);
+                return View('tanar.ora',['orarend'=>$orarend]);
                 break;
         }
    }
