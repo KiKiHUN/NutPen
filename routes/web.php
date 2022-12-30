@@ -49,6 +49,9 @@ Route::group(['middleware' => 'auth:diak,szulo,tanar,admin'], function () {
 
 
 Route::group(['middleware' => 'auth:tanar'], function () {
+    Route::get('/diakok/tantargyvalaszt',[App\Http\Controllers\Editcontroller::class,'tantargyvalaszt']);
+    Route::post('/diakok/listazas',[App\Http\Controllers\ElvalasztoController::class,'diaklistazas']);
+
     Route::get('/ertekeles/tantargyvalaszt',[App\Http\Controllers\Editcontroller::class,'tantargyvalaszt']);
     Route::post('/ertekeles/diakvalaszt',[App\Http\Controllers\Editcontroller::class,'diakvalaszt']);
     Route::post('/ertekeles/tarolas',[App\Http\Controllers\Editcontroller::class,'tarolas']);
@@ -71,7 +74,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('/kapcsolat/szulo/uj',[App\Http\Controllers\ElvalasztoController::class,'diakSzuloHozzaad']);
     Route::post('/kapcsolat/szulo/ujkapcs',[App\Http\Controllers\Editcontroller::class,'diakSzuloMentes']);
 
-    Route::get('/kapcsolat/ora',[App\Http\Controllers\ElvalasztoController::class,'diakOraListazas']);
+    Route::get('/kapcsolat/ora',[App\Http\Controllers\ElvalasztoController::class,'diakokOrakListazas']);
     Route::get('/kapcsolat/ora/uj',[App\Http\Controllers\ElvalasztoController::class,'diakOraHozzaad']);
     Route::post('/kapcsolat/ora/ujkapcs',[App\Http\Controllers\Editcontroller::class,'diakOraMentes']);
 

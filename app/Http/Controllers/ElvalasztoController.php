@@ -137,6 +137,29 @@ class ElvalasztoController extends Controller
    }
 /////////////////////////////////////////////////
 
+//////////////// Tanár //////////////////////////
+    public function diaklistazas()
+    {
+        $diakok = DB::table('diaks')->select(['diaks.vnev', 'diaks.knev', 'diaks.azonosito', 'tanoras.ID'])
+        ->join('diaks_tanoras', function ($join) {
+            $join->on('diaks.azonosito', '=', 'diaks_tanoras.Diak_azonosito');
+        })
+        ->join('tanoras', function ($join) {
+            $join->on('tanoras.ID', '=', 'diaks_tanoras.Tanora_ID');
+        })
+        ->join('tantargies', function ($join) {
+            $join->on('tantargies.ID', '=', 'tanoras.Tantargy_ID');
+        })->where([
+            ['tanoras.Tanar_Azonosito', '=', Auth::user()->azonosito],
+            ['tantargies.ID', '=', request('id')]
+        ])->get();
+        return View('tanar.diak', ['status' => 2, 'diakok' => $diakok]);
+    }
+
+
+/////////////////////////////////////////////////
+
+
 
 //////////////  Diák szülő Tanár  //////////////
    public function ertekeles()
@@ -292,7 +315,7 @@ class ElvalasztoController extends Controller
     return View('admin.diakSzuloKapcsolat',['status'=>1,'diakok'=>$diakok,'szulok'=>$szulok]);
    }
 
-   public function diakOraListazas()
+   public function diakokOrakListazas()
    {
     $kapcsolatok=DB::table('diaks_tanoras')->select(['diaks.vnev  as diak_vnev','diaks.knev as diak_knev','diaks.azonosito as diak_azon','tantargies.nev','tanoras.kezdet','tanoras.veg','tanars.azonosito as tanar_azon','tanars.vnev as tanar_vnev','tanars.knev as tanar_knev'])
     ->join('diaks', function ($join) {

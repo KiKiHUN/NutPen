@@ -41,6 +41,8 @@ class Editcontroller extends Controller
             return View('tanar.ertekeles', ['status' => 1, 'adatok' => $adatok]);
         } elseif ($request->path() == "hianyzas/tantargyvalaszt") {
             return View('tanar.hianyzas', ['status' => 1, 'adatok' => $adatok]);
+        }elseif ($request->path() == "diakok/tantargyvalaszt") {
+            return View('tanar.diak', ['status' => 1, 'adatok' => $adatok]);
         }
     }
 

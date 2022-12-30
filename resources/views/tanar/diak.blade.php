@@ -9,7 +9,7 @@
         </a>
     </li>
     <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="fa-solid fa-circle-check"></i>
             <span>
@@ -42,14 +42,14 @@
             <a class="dropdown-item" href="/hianyzas/tantargyvalaszt">Új</a>
         </div>
     </li>
+
     <li class="nav-item">
-        <a class="nav-link" href="/diakok/tantargyvalaszt">
+        <a class="nav-link active" href="/diakok/tantargyvalaszt">
             <i class="fa-solid fa-users-between-lines"></i>
             Diákok
             <span class="sr-only">(current)</span>
         </a>
     </li>
-
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -84,29 +84,7 @@
                 @endif
                 <br>
                 <table id='dtBasicExample' class="table table-bordered table-striped table-sm ">
-                    @if ($status == 0)
-                        <thead>
-                            <tr>
-                                <th class="th-sm">Név</th>
-                                <th class="th-sm">Azonosító</th>
-                                <th class="th-sm">Tantárgy</th>
-                                <th class="th-sm">Jegy</th>
-                                <th class="th-sm">dátum</th>
-                            </tr>
-                        </thead>
-                        <tbody id="myTable">
 
-                            @foreach ($adatok as $item)
-                                <tr>
-                                    <td>{{ $item->vnev . ' ' . $item->knev }}</td>
-                                    <td>{{ $item->azonosito }}</td>
-                                    <td>{{ $item->nev }}</td>
-                                    <td>{{ $item->jegy }}</td>
-                                    <td>{{ $item->datum }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    @endif
                     @if ($status == 1)
                         <thead>
                             <tr>
@@ -118,7 +96,7 @@
                         <tbody id="myTable">
                             @foreach ($adatok as $item)
                                 <tr>
-                                    <form id="bekuld_{{ $item->ID }}" action="/ertekeles/diakvalaszt" method="post">
+                                    <form id="bekuld_{{ $item->ID }}" action="/diakok/listazas" method="post">
                                         @csrf
                                         <input type="hidden" id="id" name="id" value="{{ $item->ID }}">
                                         <td>{{ $item->nev }}</td>
@@ -137,12 +115,12 @@
                                 <th>Azonosító</th>
                                 <th>Vnév</th>
                                 <th>Knév</th>
-                                <th>Kiválaszt</th>
+                                <th>Óra ID</th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
 
-                            @foreach ($adatok as $item)
+                            @foreach ($diakok as $item)
                                 <tr>
                                     <form id="bekuld_{{ $item->azonosito }}" action="/ertekeles/tarolas" method="post">
                                         @csrf
@@ -152,12 +130,7 @@
                                         <td>{{ $item->azonosito }}</td>
                                         <td>{{ $item->vnev }}</td>
                                         <td>{{ $item->knev }}</td>
-                                        <td>
-                                            @foreach ($jegyek as $item2)
-                                                <input type="submit" name="jegy" id="bekuld_{{ $item->azonosito }}"
-                                                    value="{{ $item2->jegy }}">
-                                            @endforeach
-                                        </td>
+                                        <td>{{ $item->ID }}</td>
                                     </form>
                                 </tr>
                             @endforeach

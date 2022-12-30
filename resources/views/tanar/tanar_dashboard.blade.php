@@ -43,6 +43,13 @@
         </div>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link" href="/diakok/tantargyvalaszt">
+            <i class="fa-solid fa-users-between-lines"></i>
+            Diákok
+            <span class="sr-only">(current)</span>
+        </a>
+    </li>
 
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
