@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\general;
 use App\Models\diaks_szulos;
 use App\Models\diaks_tanoras;
+use App\Models\Tantargy;
 use Faker\Factory as Faker;
 
 class Editcontroller extends Controller
@@ -149,6 +150,19 @@ class Editcontroller extends Controller
             $t->Tanar_azonosito = $request->tanarok;
             $t->save();
             return redirect('/ora');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('alert', 'Sikertelen mentés');
+        }
+    }
+
+    public function targyMentes(Request $request)
+    {
+        try {
+            $t = new Tantargy();
+            $t->nev = $request->nev;
+            $t->leiras = $request->leiras;
+            $t->save();
+            return redirect('/targy');
         } catch (\Throwable $th) {
             return redirect()->back()->with('alert', 'Sikertelen mentés');
         }

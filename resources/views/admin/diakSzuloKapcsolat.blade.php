@@ -23,7 +23,19 @@
             <a class="dropdown-item" href="/ora/uj">Új</a>
         </div>
     </li>
-
+    <li class="nav-item dropdown ">
+        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            <i class="fa-solid fa-pen-ruler"></i>
+            <span>
+                Tantárgy <i class="fas fa-angle-down"></i>
+            </span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/targy">Listázás</a>
+            <a class="dropdown-item" href="/targy/uj">Új</a>
+        </div>
+    </li>
     <li class="nav-item dropdown ">
         <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">

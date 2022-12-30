@@ -21,23 +21,19 @@
             <a class="dropdown-item" href="/ertekeles/tantargyvalaszt">Új</a>
         </div>
     </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+    <li class="nav-item">
+        <a class="nav-link" href="/ora">
             <i class="fa-solid fa-clock"></i>
-            <span>
-                Órák <i class="fas fa-angle-down"></i>
-            </span>
+            Órarend
+            <span class="sr-only">(current)</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/ora">Órarend</a>
-        </div>
+    </li>
     </li>
 
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            <i class="fa-solid fa-circle-check"></i>
+            <i class="fa-solid fa-clipboard-question"></i>
             <span>
                 Hiányzás/késés <i class="fas fa-angle-down"></i>
             </span>

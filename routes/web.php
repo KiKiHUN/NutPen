@@ -63,6 +63,10 @@ Route::group(['middleware' => 'auth:szulo'], function () {
 
 
 Route::group(['middleware' => 'auth:admin'], function () {
+    Route::get('/targy',[App\Http\Controllers\ElvalasztoController::class,'targyListazas']);
+    Route::get('/targy/uj',[App\Http\Controllers\ElvalasztoController::class,'targyHozzaad']);
+    Route::post('/targy/ujtargy',[App\Http\Controllers\Editcontroller::class,'targyMentes']);
+
     Route::get('/kapcsolat/szulo',[App\Http\Controllers\ElvalasztoController::class,'diakSzuloListazas']);
     Route::get('/kapcsolat/szulo/uj',[App\Http\Controllers\ElvalasztoController::class,'diakSzuloHozzaad']);
     Route::post('/kapcsolat/szulo/ujkapcs',[App\Http\Controllers\Editcontroller::class,'diakSzuloMentes']);

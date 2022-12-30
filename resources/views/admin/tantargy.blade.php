@@ -23,8 +23,9 @@
             <a class="dropdown-item" href="/ora/uj">Új</a>
         </div>
     </li>
+
     <li class="nav-item dropdown ">
-        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="fa-solid fa-pen-ruler"></i>
             <span>
@@ -36,6 +37,7 @@
             <a class="dropdown-item" href="/targy/uj">Új</a>
         </div>
     </li>
+
     <li class="nav-item dropdown ">
         <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -63,7 +65,7 @@
         </div>
     </li>
     <li class="nav-item dropdown ">
-        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+        <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             <i class="fa-solid fa-link"></i>
             <span>
@@ -100,64 +102,48 @@
         <div class="col-12 tm-block-col">
             <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
 
-                    @if($status==0)
-                    <h2 class="tm-block-title">Összes diák-óra kapcsolat</h2>
+                @if ($status == 0)
+                    <h2 class="tm-block-title">Összes Tárgy</h2>
                     <table id='dtBasicExample' class="table table-bordered table-striped table-sm ">
                         <thead>
                             <tr>
-                                <th class="th-sm">Tárgy név</th>
-                                <th class="th-sm">Kezdet</th>
-                                <th class="th-sm">Vég</th>
-                                <th class="th-sm">Diák név</th>
-                                <th class="th-sm">Diák azonosító</th>
-                                <th class="th-sm">Tanár név</th>
-                                <th class="th-sm">Tanár azonosító</th>
+                                <th class="th-sm">ID</th>
+                                <th class="th-sm">Név</th>
+                                <th class="th-sm">Leírás</th>
                             </tr>
                         </thead>
                         <tbody id="myTable">
-                            @foreach ($kapcsolatok as $item)
+                            @foreach ($tantargyak as $item)
                                 <tr>
+                                    <td>{{ $item->ID }}</td>
                                     <td>{{ $item->nev }}</td>
-                                    <td>{{ $item->kezdet }}</td>
-                                    <td>{{ $item->veg }}</td>
-                                    <td>{{ $item->diak_vnev." ". $item->diak_knev}}</td>
-                                    <td>{{ $item->diak_azon }}</td>
-                                    <td>{{ $item->tanar_vnev." ". $item->tanar_knev }}</td>
-                                    <td>{{ $item->tanar_azon }}</td>
-
+                                    <td>{{ $item->leiras }}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    @endif
-                    @if($status==1)
-                    <h2 class="tm-block-title">Új diák-óra kapcsolat</h2>
-                        <div>
-                            <form  id="ujDiakOra" action="/kapcsolat/ora/ujkapcs" method="post">
-                                @csrf
-                                <label for="diak">Diák: </label>
-                                <select id="diak" name="diak" >
-                                    @foreach ($diakok as $diak)
-                                        <option value="{{ $diak->azonosito }}">{{ $diak->azonosito."  //  ". $diak->vnev." ". $diak->knev}}</option>
-                                    @endforeach
-                                </select>
-                                <label for="tanora">Órák: </label>
-                                <select id="tanora" name="tanora" >
+                @endif
 
-                                    @foreach ($tanorak as $tanora)
-                                        <option value="{{ $tanora->id }}">{{ $tanora->nev."  //  ".$tanora->kezdet." -- ".$tanora->veg." // " .$tanora->vnev." ". $tanora->knev." - ".$tanora->azonosito}}</option>
-                                    @endforeach
-                                </select>
-                                <input type="submit" value="Mentés" class=" btn-success">
-                            </form>
-                        </div>
-                    @endif
+                @if ($status == 1)
+                    <h2 class="tm-block-title">Tárgy hozzáadás</h2>
+                    <div>
+                        <form id="ujTargy" action="/targy/ujtargy" method="post">
+                            @csrf
+                            <label for="nev">Név: </label>
+                            <input type="text" id="nev" name="nev" value="" required>
+                            <label for="leiras">Leírás: </label>
+                            <input type="text" id="leiras" name="leiras" value="" required>
+                            <input type="submit" value="Mentés" class=" btn-success">
+                        </form>
+                    </div>
+                @endif
 
             </div>
         </div>
     </div>
     </div>
 @endsection
+
 @section('script')
     <script src="{{ asset('/js/gorgeto.js') }}" type="text/javascript" defer></script>
 @endsection

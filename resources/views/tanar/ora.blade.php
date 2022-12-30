@@ -21,23 +21,19 @@
             <a class="dropdown-item" href="/ertekeles/tantargyvalaszt">Új</a>
         </div>
     </li>
-    <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-            aria-haspopup="true" aria-expanded="false">
+    <li class="nav-item">
+        <a class="nav-link active" href="/ora">
             <i class="fa-solid fa-clock"></i>
-            <span>
-                Órák <i class="fas fa-angle-down"></i>
-            </span>
+            Órarend
+            <span class="sr-only">(current)</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/ora">Órarend</a>
-        </div>
     </li>
+
 
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
-            <i class="fa-solid fa-circle-check"></i>
+            <i class="fa-solid fa-clipboard-question"></i>
             <span>
                 Hiányzás/késés <i class="fas fa-angle-down"></i>
             </span>
@@ -75,73 +71,89 @@
                 <table id='dtBasicExample' class="table table-bordered table-striped table-sm ">
                     <thead>
                         <tr>
-                            <th></th>
                             <th>Hétfő</th>
                             <th>Kedd</th>
                             <th>Szerda</th>
                             <th>Csütörtök</th>
                             <th>Péntek</th>
+                            <th>Szombat</th>
+                            <th>Vasárnap</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
-                        @foreach ($targyak as $item)
-                            <tr>
-                                <th>08:00-08:45</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>09:00-09:45</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>09:55-10:40</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>10:50-11:35</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>12:00-12:45</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>12:55-13:40</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                            <tr>
-                                <th>13:55-14:40</th>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                                <td>{{ $item->nev }}</td>
-                            </tr>
-                        @endforeach
+                        <?php
+                            $hetnapja = [];
+
+                            for ($i = 0; $i < 7; $i++) {
+                                $a = [];
+                                array_push($hetnapja, $a);
+                            }
+
+                            //0=hétfő, ....6=vasárnap
+                            for ($i = 0; $i < count($orarend); $i++)
+                            {
+                                if ($datum[$i]->format('l') == 'Monday')
+                                {
+                                    array_push($hetnapja[0], (object) ['nev' => $orarend[$i]->nev, 'kezdet' => $orarend[$i]->kezdet, 'veg' => $orarend[$i]->veg]);
+                                }
+                                if ($datum[$i]->format('l') == 'Tuesday')
+                                {
+                                    array_push($hetnapja[1], (object) ['nev' => $orarend[$i]->nev, 'kezdet' => $orarend[$i]->kezdet, 'veg' => $orarend[$i]->veg]);
+                                }
+                                if ($datum[$i]->format('l') == 'Wednesday')
+                                {
+                                    array_push($hetnapja[2], (object) ['nev' => $orarend[$i]->nev, 'kezdet' => $orarend[$i]->kezdet, 'veg' => $orarend[$i]->veg]);
+                                }
+                                if ($datum[$i]->format('l') == 'Thursday')
+                                {
+                                    array_push($hetnapja[3], (object) ['nev' => $orarend[$i]->nev, 'kezdet' => $orarend[$i]->kezdet, 'veg' => $orarend[$i]->veg]);
+                                }
+                                if ($datum[$i]->format('l') == 'Friday')
+                                {
+                                    array_push($hetnapja[4], (object) ['nev' => $orarend[$i]->nev, 'kezdet' => $orarend[$i]->kezdet, 'veg' => $orarend[$i]->veg]);
+                                }
+                                if ($datum[$i]->format('l') == 'Saturday')
+                                {
+                                    array_push($hetnapja[5], (object) ['nev' => $orarend[$i]->nev, 'kezdet' => $orarend[$i]->kezdet, 'veg' => $orarend[$i]->veg]);
+                                }
+                                if ($datum[$i]->format('l') == 'Sunday')
+                                {
+                                    array_push($hetnapja[6], (object) ['nev' => $orarend[$i]->nev, 'kezdet' => $orarend[$i]->kezdet, 'veg' => $orarend[$i]->veg]);
+                                }
+                            }
+
+                            //dd($orarend,$datum);
+                            //dd($datum[0]->format('l'))
+                            $counter = 0;
+                            $vanmeg = false;
+                        ?>
+
+                        <?php
+                            while (!$vanmeg)
+                            {
+                                echo ' <tr>';
+                                for ($i = 0; $i < 7; $i++)
+                                {
+                                    if (count($hetnapja[$i]) > $counter)
+                                    {
+                                        echo '<td><p>' . $hetnapja[$i][$counter]->nev . '</p><br><p>  ' . date('H:i ', strtotime($hetnapja[$i][$counter]->kezdet)) .'-'. date('H:i ', strtotime($hetnapja[$i][$counter]->veg)). '</p></td>';
+                                        $vanmeg = true;
+                                    } else
+                                    {
+                                        echo '<td>-</td>';
+                                    }
+                                }
+                                if ($vanmeg)
+                                {
+                                    $vanmeg = false;
+                                } else
+                                {
+                                    $vanmeg = true;
+                                }
+                                $counter += 1;
+                                echo ' </tr>';
+                            }
+                        ?>
                     </tbody>
             </div>
         </div>

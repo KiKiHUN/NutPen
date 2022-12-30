@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Diak;
 use App\Models\Szulo;
 use App\Models\Tanar;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -44,7 +45,7 @@ class ElvalasztoController extends Controller
             case 'd':
                 $user=DB::table('diaks')->join('felh_tipuses', function ($join) {
                     $join->on('diaks.felh_tipus_ID', '=', 'felh_tipuses.ID')->where('diaks.azonosito', '=', Auth::user()->azonosito);
-            })->first();
+                })->first();
                 return View('info',['user'=>$user]);
                 break;
             case 's':
@@ -79,26 +80,46 @@ class ElvalasztoController extends Controller
 
         switch ($azonositoValaszto) {
             case 'd':
+                $now = Carbon::now();
                 $orarend=DB::table('tantargies')->join('tanoras', function ($join) {
                     $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
                 })
                 ->join('diaks_tanoras', function ($join) {
                     $join->on('diaks_tanoras.Tanora_ID', '=', 'tanoras.ID');
-                })->where('diaks_tanoras.Diak_azonosito','=',Auth::user()->azonosito)
+                })
+                ->where('diaks_tanoras.Diak_azonosito','=',Auth::user()->azonosito)
+                ->whereBetween("kezdet", [
+                    $now->startOfWeek()->format('Y-m-d'),
+                    $now->endOfWeek()->format('Y-m-d')
+                 ])
+                ->orderBy('tanoras.kezdet','asc')
                 ->get();
-
-                return View('diak.ora',['orarend'=>$orarend]);
+                $date=[];
+                foreach ($orarend as $ora) {
+                    array_push($date, Carbon::createFromFormat('Y-m-d H:i:s', $ora->kezdet, 'Europe/London'));
+                };
+                return View('diak.ora',['orarend'=>$orarend,'datum'=>$date]);
                 break;
 
             case 't':
-                $targyak=DB::table('tantargies')->join('tanoras', function ($join) {
+                $now = Carbon::now();
+                $orarend=DB::table('tantargies')->join('tanoras', function ($join) {
                     $join->on('tanoras.Tantargy_ID', '=', 'tantargies.ID');
                 })
                 ->join('tanars', function ($join) {
                     $join->on('tanars.azonosito', '=', 'tanoras.Tanar_azonosito');
                 })->where('tanoras.Tanar_azonosito','=',Auth::user()->azonosito)
+                ->whereBetween("kezdet", [
+                    $now->startOfWeek()->format('Y-m-d'),
+                    $now->endOfWeek()->format('Y-m-d')
+                 ])
+                ->orderBy('tanoras.kezdet','asc')
                 ->get();
-                return View('tanar.ora',['targyak'=>$targyak]);
+                $date=[];
+                foreach ($orarend as $ora) {
+                    array_push($date, Carbon::createFromFormat('Y-m-d H:i:s', $ora->kezdet, 'Europe/London'));
+                };
+                return View('tanar.ora',['orarend'=>$orarend,'datum'=>$date]);
                 break;
             case 'a':
                 $targyak=DB::table('tantargies')->select(['tanoras.ID','tanars.vnev','tanars.knev','tantargies.nev','tanars.azonosito','tanoras.kezdet','tanoras.veg'])
@@ -126,7 +147,7 @@ class ElvalasztoController extends Controller
             case 'd':
                 $ertekelesek=DB::table('ertekeles')->join('diaks', function ($join) {
                     $join->on('diaks.azonosito', '=', 'ertekeles.Diak_azonosito')->where('Diak_azonosito', '=', Auth::user()->azonosito);
-            })->orderBy('datum','desc')->get();
+                })->orderBy('datum','desc')->get();
 
                 return View('diak.ertekeles',['ertekelesek'=>$ertekelesek]);
                 break;
@@ -221,6 +242,17 @@ class ElvalasztoController extends Controller
         return View('admin.Felh',['status'=>0,'felhasznalok'=>$result]);
    }
 
+   public function targyListazas()
+   {
+        $tantargyak=DB::table('tantargies')->get();
+        return View('admin.tantargy',['status'=>0,'tantargyak'=>$tantargyak]);
+   }
+
+   public function targyHozzaad()
+   {
+        return View('admin.tantargy',['status'=>1]);
+   }
+
    public function felhHozzaad()
    {
     $felhTipus=DB::table('felh_tipuses')->select(['felh_tipuses.Tipus','felh_tipuses.ID'])->get();
@@ -289,7 +321,9 @@ class ElvalasztoController extends Controller
     })
     ->join('tanars', function ($join) {
         $join->on('tanoras.tanar_azonosito', '=', 'tanars.azonosito');
-    })->get();
+    })
+    ->orderBy('tanoras.kezdet','asc')
+    ->get();
     return View('admin.diakOraKapcsolat',['status'=>1,'diakok'=>$diakok,'tanorak'=>$tanorak]);
    }
 ////////////////////////////////////////
